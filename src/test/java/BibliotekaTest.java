@@ -21,7 +21,7 @@ public class BibliotekaTest {
 
 
         //then
-        Assert.assertEquals(2, Biblioteka.listaKsiazek.size());
+        Assert.assertEquals(2, biblioteka.listaKsiazek.size());
 
     }
 
@@ -31,11 +31,11 @@ public class BibliotekaTest {
         Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
-        Assert.assertEquals(1, Biblioteka.listaKsiazek.size());
+        Assert.assertEquals(1, biblioteka.listaKsiazek.size());
         //when
         biblioteka.usunKsiazke("123");
         //then
-        Assert.assertTrue(Biblioteka.listaKsiazek.isEmpty());
+        Assert.assertTrue(biblioteka.listaKsiazek.isEmpty());
 
     }
     @Test
@@ -44,11 +44,11 @@ public class BibliotekaTest {
         Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
-        Assert.assertEquals(1, Biblioteka.listaKsiazek.size());
+        Assert.assertEquals(1, biblioteka.listaKsiazek.size());
         //when
         biblioteka.wyswietlKsiazki();
         //then
-        Assert.assertEquals(1, Biblioteka.listaKsiazek.size());
+        Assert.assertEquals(1, biblioteka.listaKsiazek.size());
 
     }
 

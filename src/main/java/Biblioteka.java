@@ -1,17 +1,20 @@
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @Getter
 public class Biblioteka {
-     public static List<Ksiazka> listaKsiazek = new ArrayList<>();
-     public static List<Karta> listaKart = new ArrayList<>();
+     public  List<Ksiazka> listaKsiazek = new ArrayList<>();
+     public  List<Karta> listaKart = new ArrayList<>();
+     public  HashMap<Karta, Ksiazka> wypozyczenia = new HashMap<>();
 
 
-    public static void dodajKsiazke(Ksiazka ksiazka) {
+    public  void dodajKsiazke(Ksiazka ksiazka) {
         long count = listaKsiazek.stream()
                 .filter(e -> e.getNrKsiazki()
                         .equals(ksiazka.getNrKsiazki()))
@@ -41,5 +44,7 @@ public class Biblioteka {
         }
 
     }
+
+
 }
 
