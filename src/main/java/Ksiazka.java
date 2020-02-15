@@ -6,10 +6,9 @@ import lombok.Getter;
 
 public class Ksiazka {
 
-    private String TytulKsiazki;
-    private String AutorKsiazki;
-    private String NrKsiazki;
-
+    private String tytulKsiazki;
+    private String autorKsiazki;
+    private String nrKsiazki;
 
 
 }
