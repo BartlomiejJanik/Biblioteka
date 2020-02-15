@@ -1,3 +1,7 @@
+import lombok.Getter;
+
+@Getter
+
 public class Karta {
     private String nrKarty;
     private Klient klient;
