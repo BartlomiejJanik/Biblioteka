@@ -20,6 +20,7 @@ public class NrKsiazkiValidator {
             if (!znaki.contains(NrKsiazkiZnaki[i])) ;
             return false;
 
+
         }
 
 
