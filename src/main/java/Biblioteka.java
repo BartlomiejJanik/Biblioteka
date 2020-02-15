@@ -1,7 +1,7 @@
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 
-import java.security.PublicKey;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +35,7 @@ public class Biblioteka {
     }
 
     public void wyswietlKsiazki() {
-        for (Ksiazka k : listaKsiazek
-             ) {
+        for (Ksiazka k : listaKsiazek) {
             System.out.println("Nr ksiazki: " + k.getNrKsiazki());
             System.out.println("Autor: " + k.getAutorKsiazki());
             System.out.println("Tytuł: " + k.getTytulKsiazki());
@@ -44,7 +43,5 @@ public class Biblioteka {
         }
 
     }
-
-
 }
 
