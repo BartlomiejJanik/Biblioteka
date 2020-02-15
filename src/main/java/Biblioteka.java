@@ -1,4 +1,4 @@
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
@@ -27,12 +27,7 @@ public class Biblioteka {
         }
     }
 
-    public void usunKsiazke(String nrKsiazki) {
-        Optional<Ksiazka> ksiazkaOptional = listaKsiazek.stream().filter(e -> e.getNrKsiazki().equals(nrKsiazki)).findAny();
-        if (ksiazkaOptional.isPresent()) {
-            listaKsiazek.remove(ksiazkaOptional.get());
-        }
-    }
+
 
     public void wyswietlKsiazki() {
         for (Ksiazka k : listaKsiazek) {
@@ -43,16 +38,36 @@ public class Biblioteka {
         }
 
     }
+
+    public void dodajKarte(Karta karta) {
+        long count = listaKart.stream().filter(e -> e.getNrKarty().equals(karta.getNrKarty())).count();
+        if (count == 0){
+            listaKart.add(karta);
+        }else{
+            System.out.println("Klient o podanym nr pesel posiada kartę!");
+        }
+    }
+
+    public void usunKsiazke(String nrKsiazki) {
+        Optional<Ksiazka> ksiazkaOptional = listaKsiazek.stream().filter(e -> e.getNrKsiazki().equals(nrKsiazki)).findAny();
+        if (ksiazkaOptional.isPresent()) {
+            listaKsiazek.remove(ksiazkaOptional.get());
+        }
+    }
+    public void usunKarte(String nrKarty){
+        Optional<Karta> optionalKarta = listaKart.stream().filter(e->e.getNrKarty().equals(nrKarty)).findAny();
+        optionalKarta.ifPresent(karta -> listaKart.remove(karta));
+    }
     public void wypozycz(Karta karta, Ksiazka ksiazka) {
-       long count = wypozyczenia.entrySet().stream()
+        long count = wypozyczenia.entrySet().stream()
                 .filter(e ->e.getValue().getNrKsiazki()
-                .equals(ksiazka.getNrKsiazki()))
+                        .equals(ksiazka.getNrKsiazki()))
                 .count();
-       if(count == 0) {
-           wypozyczenia.put(karta, ksiazka);
-           System.out.println("Wypozyczam ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
-       }else
-           System.out.println("Wybrana ksiazka jest niedostępna");
+        if(count == 0) {
+            wypozyczenia.put(karta, ksiazka);
+            System.out.println("Wypozyczam ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
+        }else
+            System.out.println("Wybrana ksiazka jest niedostępna");
 
 
 
@@ -61,22 +76,16 @@ public class Biblioteka {
 
 
     public void zwroc(Karta karta, Ksiazka ksiazka) {
-       long count = wypozyczenia.entrySet().stream()
-        .filter(e -> e.getValue().getNrKsiazki().equals(ksiazka.getNrKsiazki()))
-        .filter(e -> e.getKey().getNrKarty().equals(karta.getNrKarty()))
-        .count();
+        long count = wypozyczenia.entrySet().stream()
+                .filter(e -> e.getValue().getNrKsiazki().equals(ksiazka.getNrKsiazki()))
+                .filter(e -> e.getKey().getNrKarty().equals(karta.getNrKarty()))
+                .count();
 
-       if(count != 0) {
-           wypozyczenia.remove(karta, ksiazka);
-           System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
-       }else System.out.println("Nie mozna zwrocic ksiazki o numerze ksiazki: " + ksiazka.getNrKsiazki() + " " + "ksiazka zniszczona " +
-               "Pierdol sie :)");
+        if(count != 0) {
+            wypozyczenia.remove(karta, ksiazka);
+            System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
+        }else System.out.println("Nie mozna zwrocic ksiazki o numerze ksiazki: " + ksiazka.getNrKsiazki() + " " + "ksiazka zniszczona " +
+                "Pierdol sie :)");
     }
-
-
-
-
-
-
 }
 

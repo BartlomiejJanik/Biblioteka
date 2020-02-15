@@ -36,9 +36,8 @@ public class BibliotekaTest {
         Assert.assertTrue(biblioteka.listaKsiazek.isEmpty());
 
     }
-
     @Test
-    public void shouldPrintKsiazka() {
+    public void shouldPrintKsiazka(){
         //given
         Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
         Biblioteka biblioteka = new Biblioteka();
@@ -50,7 +49,30 @@ public class BibliotekaTest {
         Assert.assertEquals(1, biblioteka.listaKsiazek.size());
 
     }
-
+    @Test
+    public void shouldAddKarta(){
+        //given
+        Klient klient = new Klient("Bartłomiej","Janik","90073107917");
+        Karta karta = new Karta("1234",klient,0);
+        Biblioteka biblioteka = new Biblioteka();
+        //when
+        biblioteka.dodajKarte(karta);
+        //then
+        Assert.assertEquals(1,biblioteka.listaKart.size());
+    }
+    @Test
+    public void shouldRemoveKarta(){
+        //given
+        Klient klient = new Klient("Bartłomiej","Janik","90073107917");
+        Karta karta = new Karta("1234",klient,0);
+        Biblioteka biblioteka = new Biblioteka();
+        biblioteka.dodajKarte(karta);
+        Assert.assertEquals(1,biblioteka.listaKart.size());
+        //when
+        biblioteka.usunKarte("1234");
+        //then
+        Assert.assertTrue(biblioteka.listaKart.isEmpty());
+    }
     @Test
     public void shouldwypozycz() {
         //given
@@ -86,7 +108,6 @@ public class BibliotekaTest {
 
         Assert.assertEquals(1,biblioteka.listaKsiazek.size());
     }
-
 
 
 }

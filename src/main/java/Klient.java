@@ -1,3 +1,6 @@
+import lombok.Getter;
+
+@Getter
 public class Klient {
     private String imie;
     private String nazwisko;
