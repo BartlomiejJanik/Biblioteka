@@ -2,8 +2,6 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 
 public class BibliotekaTest {
 
@@ -38,8 +36,9 @@ public class BibliotekaTest {
         Assert.assertTrue(biblioteka.listaKsiazek.isEmpty());
 
     }
+
     @Test
-    public void shouldPrintKsiazka(){
+    public void shouldPrintKsiazka() {
         //given
         Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
         Biblioteka biblioteka = new Biblioteka();
@@ -51,5 +50,43 @@ public class BibliotekaTest {
         Assert.assertEquals(1, biblioteka.listaKsiazek.size());
 
     }
+
+    @Test
+    public void shouldwypozycz() {
+        //given
+        Klient klient = new Klient("Marcin", "Janusz", "90082914563");
+        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "000001");
+        Karta karta = new Karta("1234", klient, 30);
+        Biblioteka biblioteka = new Biblioteka();
+        //when
+        biblioteka.wypozycz(karta, ksiazka);
+
+
+        //then
+        Assert.assertEquals(0,biblioteka.listaKart.size());
+    }
+
+    @Test
+    public void shouldzwroc(){
+        //given
+        Klient klient = new Klient("Marcin", "Janusz", "90082914563");
+        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "000001");
+        Karta karta = new Karta("1234", klient, 30);
+        Biblioteka biblioteka = new Biblioteka();
+
+        Karta karta1 = new Karta("5678",klient,29);
+        biblioteka.dodajKsiazke(ksiazka);
+
+
+
+        //when
+        biblioteka.zwroc(karta1, ksiazka);
+
+        //then
+
+        Assert.assertEquals(1,biblioteka.listaKsiazek.size());
+    }
+
+
 
 }

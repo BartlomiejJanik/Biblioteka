@@ -1,7 +1,7 @@
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 
-import java.security.PublicKey;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +44,39 @@ public class Biblioteka {
         }
 
     }
+    public void wypozycz(Karta karta, Ksiazka ksiazka) {
+       long count = wypozyczenia.entrySet().stream()
+                .filter(e ->e.getValue().getNrKsiazki()
+                .equals(ksiazka.getNrKsiazki()))
+                .count();
+       if(count == 0) {
+           wypozyczenia.put(karta, ksiazka);
+           System.out.println("Wypozyczam ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
+       }else
+           System.out.println("Wybrana ksiazka jest niedostępna");
+
+
+
+
+    }
+
+
+    public void zwroc(Karta karta, Ksiazka ksiazka) {
+       long count = wypozyczenia.entrySet().stream()
+        .filter(e -> e.getValue().getNrKsiazki().equals(ksiazka.getNrKsiazki()))
+        .filter(e -> e.getKey().getNrKarty().equals(karta.getNrKarty()))
+        .count();
+
+       if(count != 0) {
+           wypozyczenia.remove(karta, ksiazka);
+           System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
+       }else System.out.println("Nie mozna zwrocic ksiazki o numerze ksiazki: " + ksiazka.getNrKsiazki() + " " + "ksiazka zniszczona " +
+               "Pierdol sie :)");
+    }
+
+
+
+
 
 
 }
