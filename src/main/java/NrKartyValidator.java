@@ -5,12 +5,13 @@ import java.util.List;
 public class NrKartyValidator {
 
 public static boolean valid(String nrKarty){
-    if (nrKarty.length() != 4){
-        return false;
-    }
     if (nrKarty == null){
         return false;
     }
+    if (nrKarty.length() != 4){
+        return false;
+    }
+
     if (nrKarty.contains(" ")){
         return false;
     }
