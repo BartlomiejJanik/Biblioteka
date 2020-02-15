@@ -12,7 +12,7 @@ public class BibliotekaTest {
         //given
         Ksiazka ksiazka1 = new Ksiazka("Hobbit", "Tolkien", "000001");
         Ksiazka ksiazka2 = new Ksiazka("Wladca Pierscieni", "Tolkien", "000002");
-        Biblioteka biblioteka = new Biblioteka(new ArrayList<>());
+        Biblioteka biblioteka = new Biblioteka();
 
 
         //when
@@ -21,7 +21,7 @@ public class BibliotekaTest {
 
 
         //then
-        Assert.assertEquals(2, biblioteka.getListaKsiazek().size());
+        Assert.assertEquals(2, Biblioteka.listaKsiazek.size());
 
     }
 
@@ -29,26 +29,26 @@ public class BibliotekaTest {
     public void shouldRemoveKsiazka() {
         //given
         Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
-        Biblioteka biblioteka = new Biblioteka(new ArrayList<>());
+        Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
-        Assert.assertEquals(1, biblioteka.getListaKsiazek().size());
+        Assert.assertEquals(1, Biblioteka.listaKsiazek.size());
         //when
         biblioteka.usunKsiazke("123");
         //then
-        Assert.assertTrue(biblioteka.getListaKsiazek().isEmpty());
+        Assert.assertTrue(Biblioteka.listaKsiazek.isEmpty());
 
     }
     @Test
     public void shouldPrintKsiazka(){
         //given
         Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
-        Biblioteka biblioteka = new Biblioteka(new ArrayList<>());
+        Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
-        Assert.assertEquals(1, biblioteka.getListaKsiazek().size());
+        Assert.assertEquals(1, Biblioteka.listaKsiazek.size());
         //when
         biblioteka.wyswietlKsiazki();
         //then
-        Assert.assertEquals(1, biblioteka.getListaKsiazek().size());
+        Assert.assertEquals(1, Biblioteka.listaKsiazek.size());
 
     }
 
