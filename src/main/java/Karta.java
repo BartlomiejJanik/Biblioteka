@@ -7,5 +7,6 @@ public class Karta {
         this.nrKarty = nrKarty;
         this.klient = klient;
         this.liczbaWypożyczonychKsiazek = liczbaWypożyczonychKsiazek;
+
     }
 }
