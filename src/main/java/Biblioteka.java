@@ -1,4 +1,6 @@
-import lombok.AllArgsConstructor;
+
+
+import com.google.gson.Gson;
 import lombok.Getter;
 
 
@@ -6,10 +8,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Getter
 public class Biblioteka {
@@ -17,7 +16,9 @@ public class Biblioteka {
     public List<Ksiazka> listaKsiazek2 = new ArrayList<>();
     public List<Karta> listaKart = new ArrayList<>();
     public HashMap<Karta, List<Ksiazka>> wypozyczenia = new HashMap<>();
-    public LocalDate localDate;
+
+
+
 
 
     public void dodajKsiazke(Ksiazka ksiazka) {
@@ -82,7 +83,7 @@ public class Biblioteka {
                 wypozyczenia.put(karta, listaKsiazek2);
             }
 
-            System.out.println("Wypozyczam ksiazke o numerze: " + ksiazka.getNrKsiazki() + ", Karta: " + karta.getNrKarty());
+            System.out.println("Wypozyczam ksiazke o numerze: " + ksiazka.getNrKsiazki() + ", Karta: " + karta.getNrKarty()+" "+localDate);
         } else
             System.out.println("Wybrana ksiazka jest niedostępna");
 
@@ -90,22 +91,30 @@ public class Biblioteka {
     }
 
 
-    public void zwroc(Karta karta, Ksiazka ksiazka) {
+    public void zwroc(Karta karta, Ksiazka ksiazka,LocalDate localDate) {
         long count = wypozyczenia.entrySet().stream().filter(e -> e.getValue().contains(ksiazka)).count();
 
         if (count != 0) {
             List<Ksiazka> ksiazkas = wypozyczenia.get(karta);
             ksiazkas.remove(ksiazka);
             dodajKsiazke(ksiazka);
-            System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki()+" z Karty: "+karta.getNrKarty());
+            System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki()+" z Karty: "+karta.getNrKarty()+" "+localDate);
         } else
             System.out.println("Nie mozna zwrocic ksiazki o numerze: " + ksiazka.getNrKsiazki());
     }
 
 
-    public void zapisDoPliku(Biblioteka biblioteka, String nazwaPliku) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwaPliku));
+    public String zapisDoPliku(String nazwapliku) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
+        Gson gson = new Gson();
+        String gsonnnn = gson.toJson(listaKsiazek);
+        String nazwa = "Biblioteka";
+        bufferedWriter.write(nazwa);
+        bufferedWriter.write("\n");
+        bufferedWriter.write(gsonnnn);
+        bufferedWriter.close();
 
+        return gsonnnn;
     }
 }
 

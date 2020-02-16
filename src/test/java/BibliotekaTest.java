@@ -2,6 +2,11 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+
 
 public class BibliotekaTest {
 
@@ -88,8 +93,15 @@ public class BibliotekaTest {
         biblioteka.dodajKsiazke(ksiazka);
         biblioteka.dodajKsiazke(ksiazka2);
         //when
-        biblioteka.wypozycz(karta, ksiazka);
-        biblioteka.wypozycz(karta,ksiazka2);
+        String europeanDatePattern = "yyyy-MM-dd";
+        DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern(europeanDatePattern);
+        TemporalAccessor parse = europeanDateFormatter.parse("2020-10-12");
+        LocalDate date1 = LocalDate.from(parse);
+        TemporalAccessor parse2 = europeanDateFormatter.parse("2020-10-15");
+        LocalDate date2 = LocalDate.from(parse2);
+
+        biblioteka.wypozycz(karta, ksiazka,date1);
+        biblioteka.wypozycz(karta, ksiazka2, date2);
 
 
         //then
@@ -104,17 +116,35 @@ public class BibliotekaTest {
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
         Karta karta1 = new Karta("5678", klient, 0);
-        biblioteka.wypozycz(karta1,ksiazka);
-
+        String europeanDatePattern = "yyyy-MM-dd";
+        DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern(europeanDatePattern);
+        TemporalAccessor parse = europeanDateFormatter.parse("2020-10-12");
+        LocalDate date1 = LocalDate.from(parse);
+        biblioteka.wypozycz(karta1, ksiazka, date1);
 
 
         //when
-        biblioteka.zwroc(karta1, ksiazka);
+        biblioteka.zwroc(karta1, ksiazka,date1.plusDays(10));
+
 
         //then
 
         Assert.assertEquals(1, biblioteka.listaKsiazek.size());
+
+
     }
 
 
+    @Test
+    public void zapisDoPliku() throws IOException {
+        //given
+        Biblioteka biblioteka = new Biblioteka();
+        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
+        biblioteka.dodajKsiazke(ksiazka);
+
+        //when
+        String resilt = biblioteka.zapisDoPliku("listaKsiazek.txt");
+        //then
+        Assert.assertEquals(resilt,"[{\"tytulKsiazki\":\"Hobbit\",\"autorKsiazki\":\"Tolkien\",\"nrKsiazki\":\"0001\"}]");
+    }
 }
