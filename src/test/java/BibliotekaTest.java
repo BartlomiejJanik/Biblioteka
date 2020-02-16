@@ -8,8 +8,8 @@ public class BibliotekaTest {
     @Test
     public void shoulddodajKsiazke() {
         //given
-        Ksiazka ksiazka1 = new Ksiazka("Hobbit", "Tolkien", "000001");
-        Ksiazka ksiazka2 = new Ksiazka("Wladca Pierscieni", "Tolkien", "000002");
+        Ksiazka ksiazka1 = new Ksiazka("Hobbit", "Tolkien", "0001");
+        Ksiazka ksiazka2 = new Ksiazka("Wladca Pierscieni", "Tolkien", "0002");
         Biblioteka biblioteka = new Biblioteka();
 
 
@@ -26,12 +26,12 @@ public class BibliotekaTest {
     @Test
     public void shouldRemoveKsiazka() {
         //given
-        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
+        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "1234");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
         Assert.assertEquals(1, biblioteka.listaKsiazek.size());
         //when
-        biblioteka.usunKsiazke("123");
+        biblioteka.usunKsiazke("1234");
         //then
         Assert.assertTrue(biblioteka.listaKsiazek.isEmpty());
 
@@ -40,7 +40,7 @@ public class BibliotekaTest {
     @Test
     public void shouldPrintKsiazka() {
         //given
-        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
+        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "1234");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
         Assert.assertEquals(1, biblioteka.listaKsiazek.size());
@@ -80,12 +80,16 @@ public class BibliotekaTest {
     @Test
     public void shouldwypozycz() {
         //given
-        Klient klient = new Klient("Marcin", "Janusz", "90082914563");
-        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "000001");
-        Karta karta = new Karta("1234", klient, 30);
+        Klient klient = new Klient("Marcin", "Janusz", "90073107917");
+        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
+        Ksiazka ksiazka2 = new Ksiazka("AAA", "BBB", "0002");
+        Karta karta = new Karta("1234", klient, 0);
         Biblioteka biblioteka = new Biblioteka();
+        biblioteka.dodajKsiazke(ksiazka);
+        biblioteka.dodajKsiazke(ksiazka2);
         //when
         biblioteka.wypozycz(karta, ksiazka);
+        biblioteka.wypozycz(karta,ksiazka2);
 
 
         //then
@@ -95,13 +99,13 @@ public class BibliotekaTest {
     @Test
     public void shouldzwroc() {
         //given
-        Klient klient = new Klient("Marcin", "Janusz", "90082914563");
-        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "000001");
-        Karta karta = new Karta("1234", klient, 30);
+        Klient klient = new Klient("Marcin", "Janusz", "90073107917");
+        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
         Biblioteka biblioteka = new Biblioteka();
-
-        Karta karta1 = new Karta("5678", klient, 29);
         biblioteka.dodajKsiazke(ksiazka);
+        Karta karta1 = new Karta("5678", klient, 0);
+        biblioteka.wypozycz(karta1,ksiazka);
+
 
 
         //when

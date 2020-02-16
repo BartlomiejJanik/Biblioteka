@@ -2,6 +2,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,8 +13,9 @@ import java.util.Optional;
 @Getter
 public class Biblioteka {
     public List<Ksiazka> listaKsiazek = new ArrayList<>();
+    public List<Ksiazka> listaKsiazek2 = new ArrayList<>();
     public List<Karta> listaKart = new ArrayList<>();
-    public HashMap<Karta, Ksiazka> wypozyczenia = new HashMap<>();
+    public HashMap<Karta, List<Ksiazka>> wypozyczenia = new HashMap<>();
 
 
     public void dodajKsiazke(Ksiazka ksiazka) {
@@ -60,13 +64,23 @@ public class Biblioteka {
     }
 
     public void wypozycz(Karta karta, Ksiazka ksiazka) {
-        long count = wypozyczenia.entrySet().stream()
-                .filter(e -> e.getValue().getNrKsiazki()
+        long count = listaKsiazek.stream()
+                .filter(e -> e.getNrKsiazki()
                         .equals(ksiazka.getNrKsiazki()))
                 .count();
-        if (count == 0) {
-            wypozyczenia.put(karta, ksiazka);
-            System.out.println("Wypozyczam ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
+        if (count != 0) {
+            usunKsiazke(ksiazka.getNrKsiazki());
+            if (wypozyczenia.containsKey(karta)) {
+                List<Ksiazka> ksiazkas = wypozyczenia.get(karta);
+                ksiazkas.add(ksiazka);
+                wypozyczenia.put(karta, ksiazkas);
+            } else {
+                List<Ksiazka> listaKsiazek2 = new ArrayList<>();
+                listaKsiazek2.add(ksiazka);
+                wypozyczenia.put(karta, listaKsiazek2);
+            }
+
+            System.out.println("Wypozyczam ksiazke o numerze: " + ksiazka.getNrKsiazki() + ", Karta: " + karta.getNrKarty());
         } else
             System.out.println("Wybrana ksiazka jest niedostępna");
 
@@ -75,17 +89,21 @@ public class Biblioteka {
 
 
     public void zwroc(Karta karta, Ksiazka ksiazka) {
-        long count = wypozyczenia.entrySet().stream()
-                .filter(e -> e.getValue().getNrKsiazki().equals(ksiazka.getNrKsiazki()))
-                .filter(e -> e.getKey().getNrKarty().equals(karta.getNrKarty()))
-                .count();
+        long count = wypozyczenia.entrySet().stream().filter(e -> e.getValue().contains(ksiazka)).count();
 
         if (count != 0) {
-            wypozyczenia.remove(karta, ksiazka);
+            List<Ksiazka> ksiazkas = wypozyczenia.get(karta);
+            ksiazkas.remove(ksiazka);
+            dodajKsiazke(ksiazka);
             System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
         } else
-            System.out.println("Nie mozna zwrocic ksiazki o numerze ksiazki: " + ksiazka.getNrKsiazki() + " " + "ksiazka zniszczona " +
-                    "Pierdol sie :)");
+            System.out.println("Nie mozna zwrocic ksiazki o numerze: " + ksiazka.getNrKsiazki());
+    }
+
+
+    public void zapisDoPliku(Biblioteka biblioteka, String nazwaPliku) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwaPliku));
+
     }
 }
 
