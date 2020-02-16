@@ -7,10 +7,22 @@ public class Klient {
     private String pesel;
 
     public Klient(String imie, String nazwisko, String pesel) {
-        this.imie = imie;
-        this.nazwisko = nazwisko;
-        this.pesel = pesel;
+        if (EmptyValidate.valid(imie)) {
+            this.imie = imie;
+        } else {
+            throw new IllegalArgumentException("Nie poprawne dane!");
+        }
+        if (EmptyValidate.valid(nazwisko)) {
+            this.nazwisko = nazwisko;
+        } else {
+            throw new IllegalArgumentException("Nie poprawne dane!");
+        }
+        if (PeselValidator.valid(pesel)) {
+            this.pesel = pesel;
+        }else {
+            throw new IllegalArgumentException("Nie poprawne dane!");
+        }
+
+        }
 
     }
-
-}

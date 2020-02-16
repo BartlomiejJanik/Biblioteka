@@ -8,7 +8,11 @@ public class Karta {
     private int liczbaWypożyczonychKsiazek;
 
     public Karta(String nrKarty, Klient klient, int liczbaWypożyczonychKsiazek) {
-        this.nrKarty = nrKarty;
+        if (EmptyValidate.valid(nrKarty)) {
+            this.nrKarty = nrKarty;
+        }else{
+            throw new IllegalArgumentException("Nie poprawne dane!");
+        }
         this.klient = klient;
         this.liczbaWypożyczonychKsiazek = liczbaWypożyczonychKsiazek;
 

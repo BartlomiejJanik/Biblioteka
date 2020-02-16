@@ -36,8 +36,9 @@ public class BibliotekaTest {
         Assert.assertTrue(biblioteka.listaKsiazek.isEmpty());
 
     }
+
     @Test
-    public void shouldPrintKsiazka(){
+    public void shouldPrintKsiazka() {
         //given
         Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "123");
         Biblioteka biblioteka = new Biblioteka();
@@ -49,30 +50,33 @@ public class BibliotekaTest {
         Assert.assertEquals(1, biblioteka.listaKsiazek.size());
 
     }
+
     @Test
-    public void shouldAddKarta(){
+    public void shouldAddKarta() {
         //given
-        Klient klient = new Klient("Bartłomiej","Janik","90073107917");
-        Karta karta = new Karta("1234",klient,0);
+        Klient klient = new Klient("Bartłomiej", "Janik", "90073107917");
+        Karta karta = new Karta("1234", klient, 0);
         Biblioteka biblioteka = new Biblioteka();
         //when
         biblioteka.dodajKarte(karta);
         //then
-        Assert.assertEquals(1,biblioteka.listaKart.size());
+        Assert.assertEquals(1, biblioteka.listaKart.size());
     }
+
     @Test
-    public void shouldRemoveKarta(){
+    public void shouldRemoveKarta() {
         //given
-        Klient klient = new Klient("Bartłomiej","Janik","90073107917");
-        Karta karta = new Karta("1234",klient,0);
+        Klient klient = new Klient("Bartłomiej", "Janik", "90073107917");
+        Karta karta = new Karta("1234", klient, 0);
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKarte(karta);
-        Assert.assertEquals(1,biblioteka.listaKart.size());
+        Assert.assertEquals(1, biblioteka.listaKart.size());
         //when
         biblioteka.usunKarte("1234");
         //then
         Assert.assertTrue(biblioteka.listaKart.isEmpty());
     }
+
     @Test
     public void shouldwypozycz() {
         //given
@@ -85,20 +89,19 @@ public class BibliotekaTest {
 
 
         //then
-        Assert.assertEquals(0,biblioteka.listaKart.size());
+        Assert.assertEquals(0, biblioteka.listaKart.size());
     }
 
     @Test
-    public void shouldzwroc(){
+    public void shouldzwroc() {
         //given
         Klient klient = new Klient("Marcin", "Janusz", "90082914563");
         Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "000001");
         Karta karta = new Karta("1234", klient, 30);
         Biblioteka biblioteka = new Biblioteka();
 
-        Karta karta1 = new Karta("5678",klient,29);
+        Karta karta1 = new Karta("5678", klient, 29);
         biblioteka.dodajKsiazke(ksiazka);
-
 
 
         //when
@@ -106,7 +109,7 @@ public class BibliotekaTest {
 
         //then
 
-        Assert.assertEquals(1,biblioteka.listaKsiazek.size());
+        Assert.assertEquals(1, biblioteka.listaKsiazek.size());
     }
 
 

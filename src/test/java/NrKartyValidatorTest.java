@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class NrKartyValidatorTest {
     @Test
-    public void shoudlValidate(){
+    public void shoudlValidate() {
         //given
         String nrKarty = "1234";
         //when
@@ -13,8 +13,9 @@ public class NrKartyValidatorTest {
         Assert.assertTrue(result);
 
     }
+
     @Test
-    public void shoudlCheckIfNull(){
+    public void shoudlCheckIfNull() {
         //given
         String nrKarty = null;
         //when
@@ -22,8 +23,9 @@ public class NrKartyValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shoudlCheckIfEmpty(){
+    public void shoudlCheckIfEmpty() {
         //given
         String nrKarty = "";
         //when
@@ -31,8 +33,9 @@ public class NrKartyValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shouldCheckIfMoreChar(){
+    public void shouldCheckIfMoreChar() {
         //given
         String nrKarty = "12345";
         //when
@@ -40,8 +43,9 @@ public class NrKartyValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shouldCheckIflessChar(){
+    public void shouldCheckIflessChar() {
         //given
         String nrKarty = "123";
         //when
@@ -49,8 +53,9 @@ public class NrKartyValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shouldCheckIfAddChar(){
+    public void shouldCheckIfAddChar() {
         //given
         String nrKarty = "12cd";
         //when

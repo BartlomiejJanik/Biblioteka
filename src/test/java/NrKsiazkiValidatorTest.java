@@ -21,7 +21,7 @@ public class NrKsiazkiValidatorTest {
     }
 
     @Test
-    public void shouldCheckEmptyNrKsiazki(){
+    public void shouldCheckEmptyNrKsiazki() {
         //given
         String NrKsiazki = "";
 
@@ -84,11 +84,6 @@ public class NrKsiazkiValidatorTest {
 
         Assert.assertFalse(result);
     }
-
-
-
-
-
 
 
 }

@@ -9,12 +9,12 @@ import java.util.Optional;
 
 @Getter
 public class Biblioteka {
-     public  List<Ksiazka> listaKsiazek = new ArrayList<>();
-     public  List<Karta> listaKart = new ArrayList<>();
-     public  HashMap<Karta, Ksiazka> wypozyczenia = new HashMap<>();
+    public List<Ksiazka> listaKsiazek = new ArrayList<>();
+    public List<Karta> listaKart = new ArrayList<>();
+    public HashMap<Karta, Ksiazka> wypozyczenia = new HashMap<>();
 
 
-    public  void dodajKsiazke(Ksiazka ksiazka) {
+    public void dodajKsiazke(Ksiazka ksiazka) {
         long count = listaKsiazek.stream()
                 .filter(e -> e.getNrKsiazki()
                         .equals(ksiazka.getNrKsiazki()))
@@ -26,7 +26,6 @@ public class Biblioteka {
             System.out.println("Ksiazka znajduje się już w bibliotece!");
         }
     }
-
 
 
     public void wyswietlKsiazki() {
@@ -41,9 +40,9 @@ public class Biblioteka {
 
     public void dodajKarte(Karta karta) {
         long count = listaKart.stream().filter(e -> e.getNrKarty().equals(karta.getNrKarty())).count();
-        if (count == 0){
+        if (count == 0) {
             listaKart.add(karta);
-        }else{
+        } else {
             System.out.println("Klient o podanym nr pesel posiada kartę!");
         }
     }
@@ -54,22 +53,22 @@ public class Biblioteka {
             listaKsiazek.remove(ksiazkaOptional.get());
         }
     }
-    public void usunKarte(String nrKarty){
-        Optional<Karta> optionalKarta = listaKart.stream().filter(e->e.getNrKarty().equals(nrKarty)).findAny();
+
+    public void usunKarte(String nrKarty) {
+        Optional<Karta> optionalKarta = listaKart.stream().filter(e -> e.getNrKarty().equals(nrKarty)).findAny();
         optionalKarta.ifPresent(karta -> listaKart.remove(karta));
     }
+
     public void wypozycz(Karta karta, Ksiazka ksiazka) {
         long count = wypozyczenia.entrySet().stream()
-                .filter(e ->e.getValue().getNrKsiazki()
+                .filter(e -> e.getValue().getNrKsiazki()
                         .equals(ksiazka.getNrKsiazki()))
                 .count();
-        if(count == 0) {
+        if (count == 0) {
             wypozyczenia.put(karta, ksiazka);
             System.out.println("Wypozyczam ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
-        }else
+        } else
             System.out.println("Wybrana ksiazka jest niedostępna");
-
-
 
 
     }
@@ -81,11 +80,12 @@ public class Biblioteka {
                 .filter(e -> e.getKey().getNrKarty().equals(karta.getNrKarty()))
                 .count();
 
-        if(count != 0) {
+        if (count != 0) {
             wypozyczenia.remove(karta, ksiazka);
             System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
-        }else System.out.println("Nie mozna zwrocic ksiazki o numerze ksiazki: " + ksiazka.getNrKsiazki() + " " + "ksiazka zniszczona " +
-                "Pierdol sie :)");
+        } else
+            System.out.println("Nie mozna zwrocic ksiazki o numerze ksiazki: " + ksiazka.getNrKsiazki() + " " + "ksiazka zniszczona " +
+                    "Pierdol sie :)");
     }
 }
 

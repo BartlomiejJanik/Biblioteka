@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class PeselValidatorTest {
     @Test
-    public void shoudlChceckPesel(){
+    public void shoudlChceckPesel() {
         //given
         String pesel = "90073107917";
         //when
@@ -11,8 +11,9 @@ public class PeselValidatorTest {
         //then
         Assert.assertTrue(result);
     }
+
     @Test
-    public void shouldCheckIfNull(){
+    public void shouldCheckIfNull() {
         //given
         String pesel = null;
         //when
@@ -20,8 +21,9 @@ public class PeselValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shouldCheckIfAddCharakter(){
+    public void shouldCheckIfAddCharakter() {
         //given
         String pesel = "9007as07917";
         //when
@@ -29,8 +31,9 @@ public class PeselValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shouldCheckIfIsTooManyChar(){
+    public void shouldCheckIfIsTooManyChar() {
         //given
         String pesel = "9007310791731";
         //when
@@ -38,8 +41,9 @@ public class PeselValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shoudlCheckIfLessChar(){
+    public void shoudlCheckIfLessChar() {
         //given
         String pesel = "90073107";
         //when
@@ -47,8 +51,9 @@ public class PeselValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shouldCheckIsEmpty(){
+    public void shouldCheckIsEmpty() {
         //given
         String pesel = "";
         //when

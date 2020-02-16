@@ -3,18 +3,18 @@ import java.util.List;
 
 public class PeselValidator {
 
-    public static boolean valid(String pesel){
-        if (pesel == null){
+    public static boolean valid(String pesel) {
+        if (pesel == null) {
             return false;
         }
-        if (pesel.length() != 11){
+        if (pesel.length() != 11) {
             return false;
         }
-        List<Character> znaki = Arrays.asList('0','1','2','3','4','5','6','7','8','9');
+        List<Character> znaki = Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
         char[] peselZnaki = pesel.toCharArray();
 
-        for (int i = 0; i <pesel.length() ; i++) {
-            if (!znaki.contains(peselZnaki[i])){
+        for (int i = 0; i < pesel.length(); i++) {
+            if (!znaki.contains(peselZnaki[i])) {
                 return false;
             }
 
