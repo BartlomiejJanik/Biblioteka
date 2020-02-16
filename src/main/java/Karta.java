@@ -1,5 +1,7 @@
 import lombok.Getter;
 
+import javax.crypto.IllegalBlockSizeException;
+
 @Getter
 
 public class Karta {
@@ -10,11 +12,15 @@ public class Karta {
     public Karta(String nrKarty, Klient klient, int liczbaWypożyczonychKsiazek) {
         if (EmptyValidate.valid(nrKarty)) {
             this.nrKarty = nrKarty;
-        }else{
+        } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
         this.klient = klient;
-        this.liczbaWypożyczonychKsiazek = liczbaWypożyczonychKsiazek;
+        if (liczbaWypożyczonychKsiazek <= 4) {
+            this.liczbaWypożyczonychKsiazek = liczbaWypożyczonychKsiazek;
+        }else {
+            throw new IllegalArgumentException("Limit książek!");
+        }
 
     }
 }

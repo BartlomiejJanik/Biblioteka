@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Biblioteka {
     public List<Ksiazka> listaKsiazek2 = new ArrayList<>();
     public List<Karta> listaKart = new ArrayList<>();
     public HashMap<Karta, List<Ksiazka>> wypozyczenia = new HashMap<>();
+    public LocalDate localDate;
 
 
     public void dodajKsiazke(Ksiazka ksiazka) {
@@ -63,7 +65,7 @@ public class Biblioteka {
         optionalKarta.ifPresent(karta -> listaKart.remove(karta));
     }
 
-    public void wypozycz(Karta karta, Ksiazka ksiazka) {
+    public void wypozycz(Karta karta, Ksiazka ksiazka,LocalDate localDate) {
         long count = listaKsiazek.stream()
                 .filter(e -> e.getNrKsiazki()
                         .equals(ksiazka.getNrKsiazki()))
@@ -95,7 +97,7 @@ public class Biblioteka {
             List<Ksiazka> ksiazkas = wypozyczenia.get(karta);
             ksiazkas.remove(ksiazka);
             dodajKsiazke(ksiazka);
-            System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki());
+            System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki()+" z Karty: "+karta.getNrKarty());
         } else
             System.out.println("Nie mozna zwrocic ksiazki o numerze: " + ksiazka.getNrKsiazki());
     }
