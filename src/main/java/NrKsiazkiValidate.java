@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class NrKsiazkiValidator {
+public class NrKsiazkiValidate {
 
     public static boolean valid(String NrKsiazki) {
         if (NrKsiazki == null) {

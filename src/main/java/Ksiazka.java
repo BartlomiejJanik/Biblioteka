@@ -1,7 +1,4 @@
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.time.LocalDate;
 
 @Getter
 
@@ -23,7 +20,7 @@ public class Ksiazka {
         }else{
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
-        if (NrKartyValidator.valid(nrKsiazki)) {
+        if (NrKartyValidate.valid(nrKsiazki)) {
             this.nrKsiazki = nrKsiazki;
         }else{
             throw new IllegalArgumentException("Nie poprawne dane!");

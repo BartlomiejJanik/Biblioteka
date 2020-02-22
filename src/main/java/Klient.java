@@ -4,9 +4,10 @@ import lombok.Getter;
 public class Klient {
     private String imie;
     private String nazwisko;
+    private String email;
     private String pesel;
 
-    public Klient(String imie, String nazwisko, String pesel) {
+    public Klient(String imie, String nazwisko, String email, String pesel) {
         if (EmptyValidate.valid(imie)) {
             this.imie = imie;
         } else {
@@ -17,13 +18,18 @@ public class Klient {
         } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
+        if (EmailValidate.vaild(email)) {
+            this.email = email;
+        }else{
+            throw new IllegalArgumentException("Nie poprawne dane!");
+        }
         if (PeselValidator.valid(pesel)) {
             this.pesel = pesel;
-        }else {
+        } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
 
-        }
+    }
 
     @Override
     public String toString() {

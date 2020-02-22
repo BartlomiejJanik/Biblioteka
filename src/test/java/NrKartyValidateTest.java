@@ -1,13 +1,13 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-public class NrKartyValidatorTest {
+public class NrKartyValidateTest {
     @Test
     public void shoudlValidate() {
         //given
         String nrKarty = "1234";
         //when
-        boolean result = NrKartyValidator.valid(nrKarty);
+        boolean result = NrKartyValidate.valid(nrKarty);
 
         //then
         Assert.assertTrue(result);
@@ -19,7 +19,7 @@ public class NrKartyValidatorTest {
         //given
         String nrKarty = null;
         //when
-        boolean result = NrKartyValidator.valid(nrKarty);
+        boolean result = NrKartyValidate.valid(nrKarty);
         //then
         Assert.assertFalse(result);
     }
@@ -29,7 +29,7 @@ public class NrKartyValidatorTest {
         //given
         String nrKarty = "";
         //when
-        boolean result = NrKartyValidator.valid(nrKarty);
+        boolean result = NrKartyValidate.valid(nrKarty);
         //then
         Assert.assertFalse(result);
     }
@@ -39,7 +39,7 @@ public class NrKartyValidatorTest {
         //given
         String nrKarty = "12345";
         //when
-        boolean result = NrKartyValidator.valid(nrKarty);
+        boolean result = NrKartyValidate.valid(nrKarty);
         //then
         Assert.assertFalse(result);
     }
@@ -49,7 +49,7 @@ public class NrKartyValidatorTest {
         //given
         String nrKarty = "123";
         //when
-        boolean result = NrKartyValidator.valid(nrKarty);
+        boolean result = NrKartyValidate.valid(nrKarty);
         //then
         Assert.assertFalse(result);
     }
@@ -59,7 +59,7 @@ public class NrKartyValidatorTest {
         //given
         String nrKarty = "12cd";
         //when
-        boolean result = NrKartyValidator.valid(nrKarty);
+        boolean result = NrKartyValidate.valid(nrKarty);
         //then
         Assert.assertFalse(result);
     }

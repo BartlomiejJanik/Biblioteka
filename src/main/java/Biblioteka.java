@@ -14,7 +14,7 @@ import java.util.*;
 @Getter
 public class Biblioteka {
     public List<Ksiazka> listaKsiazek = new ArrayList<>();
-    public List<Ksiazka> listaKsiazek2 = new ArrayList<>();
+    public List<Klient> listaKlientow = new ArrayList<>();
     public List<Karta> listaKart = new ArrayList<>();
     public HashMap<Karta, List<Ksiazka>> wypozyczenia = new HashMap<>();
 

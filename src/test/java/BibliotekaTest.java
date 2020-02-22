@@ -70,7 +70,7 @@ public class BibliotekaTest {
         biblioteka.dodajKsiazke(ksiazka);
         biblioteka.dodajKsiazke(ksiazka2);
         biblioteka.dodajKsiazke(ksiazka3);
-        Klient klient = new Klient("Bartłomiej","Janik","90073107917");
+        Klient klient = new Klient("Bartłomiej","Janik","abc@gmail.com","90073107917");
         Karta karta = new Karta("0001",klient);
         biblioteka.dodajKarte(karta);
         LocalDate date1 = LocalDate.now();
@@ -83,7 +83,7 @@ public class BibliotekaTest {
     @Test
     public void shouldAddKarta() {
         //given
-        Klient klient = new Klient("Bartłomiej", "Janik", "90073107917");
+        Klient klient = new Klient("Bartłomiej", "Janik","abc@gmail.com", "90073107917");
         Karta karta = new Karta("1234", klient);
         Biblioteka biblioteka = new Biblioteka();
         //when
@@ -95,7 +95,7 @@ public class BibliotekaTest {
     @Test
     public void shouldRemoveKarta() {
         //given
-        Klient klient = new Klient("Bartłomiej", "Janik", "90073107917");
+        Klient klient = new Klient("Bartłomiej", "Janik","abc@gmail.com", "90073107917");
         Karta karta = new Karta("1234", klient);
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKarte(karta);
@@ -109,7 +109,7 @@ public class BibliotekaTest {
     @Test
     public void shouldwypozycz() {
         //given
-        Klient klient = new Klient("Marcin", "Janusz", "90073107917");
+        Klient klient = new Klient("Marcin", "Janusz","abc@gmail.com", "90073107917");
         Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
         Ksiazka ksiazka2 = new Ksiazka("AAA", "BBB", "0002");
         Ksiazka ksiazka3 = new Ksiazka("BBB", "BBB", "0003");
@@ -148,7 +148,7 @@ public class BibliotekaTest {
     @Test
     public void shouldzwroc() {
         //given
-        Klient klient = new Klient("Marcin", "Janusz", "90073107917");
+        Klient klient = new Klient("Marcin", "Janusz","abc@gmail.com", "90073107917");
         Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
         Ksiazka ksiazka2 = new Ksiazka("Hobbit", "Tolkien", "0002");
         Biblioteka biblioteka = new Biblioteka();
@@ -197,8 +197,8 @@ public class BibliotekaTest {
     public void zapisDoPlikuListaKart() throws IOException {
         //given
         Biblioteka biblioteka = new Biblioteka();
-        Klient klient = new Klient("Marcin", "Janusz", "90073107917");
-        Klient klient2 = new Klient("Bartłomiej", "Janik", "90073107917");
+        Klient klient = new Klient("Marcin", "Janusz","abc@gmail.com", "90073107917");
+        Klient klient2 = new Klient("Bartłomiej", "Janik","abc@gmail.com", "90073107917");
         Karta karta = new Karta("0001", klient);
         Karta karta2 = new Karta("0002", klient2);
         biblioteka.dodajKarte(karta);

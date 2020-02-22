@@ -1,9 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class NrKsiazkiValidatorTest {
+public class NrKsiazkiValidateTest {
 
     @Test
     public void shouldCheckNullValues() {
@@ -13,7 +11,7 @@ public class NrKsiazkiValidatorTest {
 
         //when
 
-        boolean result = NrKsiazkiValidator.valid(NrKsiazki);
+        boolean result = NrKsiazkiValidate.valid(NrKsiazki);
 
         //then
 
@@ -28,7 +26,7 @@ public class NrKsiazkiValidatorTest {
 
         //when
 
-        boolean result = NrKsiazkiValidator.valid(NrKsiazki);
+        boolean result = NrKsiazkiValidate.valid(NrKsiazki);
 
 
         //then
@@ -41,7 +39,7 @@ public class NrKsiazkiValidatorTest {
         String NrKsiazki = "123456789";
 
         //when
-        boolean result = NrKsiazkiValidator.valid(NrKsiazki);
+        boolean result = NrKsiazkiValidate.valid(NrKsiazki);
 
         //then
         Assert.assertFalse(result);
@@ -53,7 +51,7 @@ public class NrKsiazkiValidatorTest {
         String NrKsiazki = "123456896874";
 
         //when
-        boolean result = NrKsiazkiValidator.valid(NrKsiazki);
+        boolean result = NrKsiazkiValidate.valid(NrKsiazki);
 
         //then
         Assert.assertFalse(result);
@@ -65,7 +63,7 @@ public class NrKsiazkiValidatorTest {
         String NrKsiazki = "123as4";
 
         //when
-        boolean result = NrKsiazkiValidator.valid(NrKsiazki);
+        boolean result = NrKsiazkiValidate.valid(NrKsiazki);
         //then
 
         Assert.assertFalse(result);
@@ -78,7 +76,7 @@ public class NrKsiazkiValidatorTest {
         String NrKsiazki = "123456";
 
         //when
-        boolean result = NrKsiazkiValidator.valid(NrKsiazki);
+        boolean result = NrKsiazkiValidate.valid(NrKsiazki);
 
         //then
 
