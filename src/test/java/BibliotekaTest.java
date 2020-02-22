@@ -127,14 +127,17 @@ public class BibliotekaTest {
         //given
         Klient klient = new Klient("Marcin", "Janusz", "90073107917");
         Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
+        Ksiazka ksiazka2 = new Ksiazka("Hobbit", "Tolkien", "0002");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
+        biblioteka.dodajKsiazke(ksiazka2);
         Karta karta1 = new Karta("5678", klient);
         String europeanDatePattern = "yyyy-MM-dd";
         DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern(europeanDatePattern);
         TemporalAccessor parse = europeanDateFormatter.parse("2020-10-12");
         LocalDate date1 = LocalDate.from(parse);
         biblioteka.wypozycz(karta1, ksiazka, date1);
+        biblioteka.wypozycz(karta1, ksiazka2, date1);
 
 
         //when
