@@ -46,15 +46,38 @@ public class BibliotekaTest {
     @Test
     public void shouldPrintKsiazka() {
         //given
-        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "1234");
+        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0001");
+        Ksiazka ksiazka2 = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0002");
+        Ksiazka ksiazka3= new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0003");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
-        Assert.assertEquals(1, biblioteka.listaKsiazek.size());
+        biblioteka.dodajKsiazke(ksiazka2);
+        biblioteka.dodajKsiazke(ksiazka3);
+        Assert.assertEquals(3, biblioteka.listaKsiazek.size());
         //when
         biblioteka.wyswietlKsiazki();
         //then
-        Assert.assertEquals(1, biblioteka.listaKsiazek.size());
+        Assert.assertEquals(3, biblioteka.listaKsiazek.size());
 
+    }
+    @Test
+    public void shouldPrintKarta(){
+        //given
+        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0001");
+        Ksiazka ksiazka2 = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0002");
+        Ksiazka ksiazka3= new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0003");
+        Biblioteka biblioteka = new Biblioteka();
+        biblioteka.dodajKsiazke(ksiazka);
+        biblioteka.dodajKsiazke(ksiazka2);
+        biblioteka.dodajKsiazke(ksiazka3);
+        Klient klient = new Klient("Bartłomiej","Janik","90073107917");
+        Karta karta = new Karta("0001",klient);
+        biblioteka.dodajKarte(karta);
+        LocalDate date1 = LocalDate.now();
+        biblioteka.wypozycz(karta,ksiazka,date1);
+        biblioteka.wypozycz(karta,ksiazka2,date1);
+        biblioteka.wypozycz(karta,ksiazka3,date1);
+        biblioteka.wyswietlKarty();
     }
 
     @Test

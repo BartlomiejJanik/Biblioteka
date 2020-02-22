@@ -38,9 +38,16 @@ public class Biblioteka {
             System.out.println("Nr ksiazki: " + k.getNrKsiazki());
             System.out.println("Autor: " + k.getAutorKsiazki());
             System.out.println("Tytuł: " + k.getTytulKsiazki());
-
+            System.out.println(" ");
         }
+    }
 
+    public void wyswietlKarty() {
+        for (Karta k : listaKart) {
+            System.out.println("Nr karty: " + k.getNrKarty());
+            System.out.println(k.getKlient());
+            System.out.println("Liczba wypożyczonych książek: " + k.getLiczbaWypożyczonychKsiazek());
+        }
     }
 
     public void dodajKarte(Karta karta) {
@@ -73,36 +80,25 @@ public class Biblioteka {
         if (count != 0) {
             if (counter >= 4) {
                 System.out.println("limit");
-
             } else {
                 usunKsiazke(ksiazka.getNrKsiazki());
                 if (wypozyczenia.containsKey(karta)) {
-
                     List<Ksiazka> ksiazkas = wypozyczenia.get(karta);
                     ksiazkas.add(ksiazka);
                     wypozyczenia.put(karta, ksiazkas);
                     counter++;
                     karta.setLiczbaWypożyczonychKsiazek(counter);
-
-
                 } else {
-
                     List<Ksiazka> listaKsiazek2 = new ArrayList<>();
                     listaKsiazek2.add(ksiazka);
                     wypozyczenia.put(karta, listaKsiazek2);
                     counter++;
                     karta.setLiczbaWypożyczonychKsiazek(counter);
-
                 }
                 System.out.println("Wypozyczam ksiazke o numerze: " + ksiazka.getNrKsiazki() + ", Karta: " + karta.getNrKarty() + " " + localDate + " " + "wypożyczone książki: " + counter);
             }
-
-
-
         } else
             System.out.println("Wybrana ksiazka jest niedostępna");
-
-
     }
 
 
