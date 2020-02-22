@@ -1,12 +1,13 @@
 
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.nio.CharBuffer;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -16,9 +17,6 @@ public class Biblioteka {
     public List<Ksiazka> listaKsiazek2 = new ArrayList<>();
     public List<Karta> listaKart = new ArrayList<>();
     public HashMap<Karta, List<Ksiazka>> wypozyczenia = new HashMap<>();
-
-
-
 
 
     public void dodajKsiazke(Ksiazka ksiazka) {
@@ -66,24 +64,41 @@ public class Biblioteka {
         optionalKarta.ifPresent(karta -> listaKart.remove(karta));
     }
 
-    public void wypozycz(Karta karta, Ksiazka ksiazka,LocalDate localDate) {
+    public void wypozycz(Karta karta, Ksiazka ksiazka, LocalDate localDate) {
         long count = listaKsiazek.stream()
                 .filter(e -> e.getNrKsiazki()
                         .equals(ksiazka.getNrKsiazki()))
                 .count();
+        int counter = karta.getLiczbaWypożyczonychKsiazek();
         if (count != 0) {
-            usunKsiazke(ksiazka.getNrKsiazki());
-            if (wypozyczenia.containsKey(karta)) {
-                List<Ksiazka> ksiazkas = wypozyczenia.get(karta);
-                ksiazkas.add(ksiazka);
-                wypozyczenia.put(karta, ksiazkas);
+            if (counter >= 4) {
+                System.out.println("limit");
+
             } else {
-                List<Ksiazka> listaKsiazek2 = new ArrayList<>();
-                listaKsiazek2.add(ksiazka);
-                wypozyczenia.put(karta, listaKsiazek2);
+                usunKsiazke(ksiazka.getNrKsiazki());
+                if (wypozyczenia.containsKey(karta)) {
+
+                    List<Ksiazka> ksiazkas = wypozyczenia.get(karta);
+                    ksiazkas.add(ksiazka);
+                    wypozyczenia.put(karta, ksiazkas);
+                    counter++;
+                    karta.setLiczbaWypożyczonychKsiazek(counter);
+
+
+                } else {
+
+                    List<Ksiazka> listaKsiazek2 = new ArrayList<>();
+                    listaKsiazek2.add(ksiazka);
+                    wypozyczenia.put(karta, listaKsiazek2);
+                    counter++;
+                    karta.setLiczbaWypożyczonychKsiazek(counter);
+
+                }
+                System.out.println("Wypozyczam ksiazke o numerze: " + ksiazka.getNrKsiazki() + ", Karta: " + karta.getNrKarty() + " " + localDate + " " + "wypożyczone książki: " + counter);
             }
 
-            System.out.println("Wypozyczam ksiazke o numerze: " + ksiazka.getNrKsiazki() + ", Karta: " + karta.getNrKarty()+" "+localDate);
+
+
         } else
             System.out.println("Wybrana ksiazka jest niedostępna");
 
@@ -91,30 +106,58 @@ public class Biblioteka {
     }
 
 
-    public void zwroc(Karta karta, Ksiazka ksiazka,LocalDate localDate) {
+    public void zwroc(Karta karta, Ksiazka ksiazka, LocalDate localDate) {
         long count = wypozyczenia.entrySet().stream().filter(e -> e.getValue().contains(ksiazka)).count();
-
+        int counter = karta.getLiczbaWypożyczonychKsiazek();
         if (count != 0) {
             List<Ksiazka> ksiazkas = wypozyczenia.get(karta);
             ksiazkas.remove(ksiazka);
             dodajKsiazke(ksiazka);
-            System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki()+" z Karty: "+karta.getNrKarty()+" "+localDate);
+            counter--;
+            karta.setLiczbaWypożyczonychKsiazek(counter);
+            System.out.println("Oddano ksiazke o numerze ksiazki: " + ksiazka.getNrKsiazki() + " z Karty: " + karta.getNrKarty() + " " + localDate + " " + "Pozostało " + counter + " do zwrócenia");
         } else
             System.out.println("Nie mozna zwrocic ksiazki o numerze: " + ksiazka.getNrKsiazki());
     }
 
-
-    public String zapisDoPliku(String nazwapliku) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
+    public String listaKsiazekGson() {
         Gson gson = new Gson();
-        String gsonnnn = gson.toJson(listaKsiazek);
-        String nazwa = "Biblioteka";
-        bufferedWriter.write(nazwa);
-        bufferedWriter.write("\n");
-        bufferedWriter.write(gsonnnn);
-        bufferedWriter.close();
-
-        return gsonnnn;
+        String gsonListaKsiazek = gson.toJson(listaKsiazek);
+        return gsonListaKsiazek;
     }
+
+    public String listaKartGson() {
+        Gson gson = new Gson();
+        String gsonListaKart = gson.toJson(listaKart);
+        return gsonListaKart;
+    }
+
+    public void zapisDoPlikuListaKsiazek(String nazwapliku) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
+        bufferedWriter.write(listaKsiazekGson());
+        bufferedWriter.close();
+    }
+
+    public void zapisDoPlikuListaKart(String nazwapliku) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
+        bufferedWriter.write(listaKartGson());
+        bufferedWriter.close();
+    }
+
+
+    public void odczytZPlikuListaKart(String nazwapliku) throws IOException {
+        Gson gson = new Gson();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(nazwapliku));
+        String linia = bufferedReader.readLine();
+        Type type = new TypeToken<List<Karta>>() {
+        }.getType();
+        List<Karta> listaKart2 = gson.fromJson(linia, type);
+        listaKart.clear();
+        listaKart = listaKart2;
+
+
+    }
+
+
 }
 

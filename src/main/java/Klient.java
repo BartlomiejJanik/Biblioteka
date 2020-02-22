@@ -25,4 +25,12 @@ public class Klient {
 
         }
 
+    @Override
+    public String toString() {
+        return "Klient{" +
+                "imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
+                ", pesel='" + pesel + '\'' +
+                '}';
     }
+}
