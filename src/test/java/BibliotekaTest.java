@@ -1,8 +1,9 @@
 
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -73,11 +74,11 @@ public class BibliotekaTest {
         Klient klient = new Klient("Bartłomiej","Janik","abc@gmail.com","90073107917");
         Karta karta = new Karta("0001",klient);
         biblioteka.dodajKarte(karta);
-        LocalDate date1 = LocalDate.now();
-        biblioteka.wypozycz(karta,ksiazka,date1);
-        biblioteka.wypozycz(karta,ksiazka2,date1);
-        biblioteka.wypozycz(karta,ksiazka3,date1);
+        biblioteka.wypozycz(karta,ksiazka,LocalDate.now());
+        //when
         biblioteka.wyswietlKarty();
+        //then
+        Assert.assertEquals(1,biblioteka.listaKart.size());
     }
 
     @Test
@@ -104,6 +105,48 @@ public class BibliotekaTest {
         biblioteka.usunKarte("1234");
         //then
         Assert.assertTrue(biblioteka.listaKart.isEmpty());
+    }
+    @Test
+    public void shouldAddKlient(){
+        //given
+        Klient klient = new Klient("Bartłomiej", "Janik", "yanekk1990@gmail.com","90073107917");
+        Biblioteka biblioteka = new Biblioteka();
+        //when
+        biblioteka.dodajKlienta(klient);
+        //then
+        Assert.assertEquals(1,biblioteka.listaKlientow.size());
+    }
+
+    @Test
+    public void shouldRemoveKlient(){
+        //given
+        Klient klient = new Klient("Bartłomiej", "Janik", "yanekk1990@gmail.com","90073107917");
+        Klient klient2 = new Klient("Adam", "Szczęsny", "yanekk1991@gmail.com","95092345698");
+        Biblioteka biblioteka = new Biblioteka();
+        biblioteka.dodajKlienta(klient);
+        biblioteka.dodajKlienta(klient2);
+        System.out.println(biblioteka.listaKlientow.size());
+        //when
+        biblioteka.usunKlienta("90073107917");
+        //then
+        System.out.println(biblioteka.listaKlientow.size());
+        Assert.assertEquals(1,biblioteka.listaKlientow.size());
+    }
+
+    @Test
+    public void shouldPrintKlient(){
+        //given
+        Klient klient = new Klient("Bartłomiej", "Janik", "yanekk1990@gmail.com","90073107917");
+        Klient klient2 = new Klient("Adam", "Szczęsny", "yanekk1991@gmail.com","95092345698");
+        Biblioteka biblioteka = new Biblioteka();
+        biblioteka.dodajKlienta(klient);
+        biblioteka.dodajKlienta(klient2);
+        System.out.println(biblioteka.listaKlientow.size());
+        //when
+        biblioteka.wyswietlKlientów();
+        //then
+        Assert.assertEquals(2,biblioteka.listaKlientow.size());
+
     }
 
     @Test

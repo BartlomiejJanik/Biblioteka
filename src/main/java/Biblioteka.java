@@ -55,7 +55,7 @@ public class Biblioteka {
         if (count == 0) {
             listaKart.add(karta);
         } else {
-            System.out.println("Klient o podanym nr pesel posiada kartę!");
+            System.out.println("Karta o podanym numerze już istnieje!");
         }
     }
 
@@ -69,6 +69,32 @@ public class Biblioteka {
     public void usunKarte(String nrKarty) {
         Optional<Karta> optionalKarta = listaKart.stream().filter(e -> e.getNrKarty().equals(nrKarty)).findAny();
         optionalKarta.ifPresent(karta -> listaKart.remove(karta));
+    }
+
+    public void dodajKlienta(Klient klient) {
+        long count = listaKlientow.stream().filter(e -> e.getPesel().equals(klient.getPesel())).count();
+        if (count == 0) {
+            listaKlientow.add(klient);
+        } else {
+            System.out.println("Klient o podanym nr pesel istnieje w bazie!");
+        }
+    }
+
+    public void usunKlienta(String pesel){
+        Optional<Klient> optionalKlient = listaKlientow.stream().filter(e->e.getPesel().equals(pesel)).findAny();
+        if (optionalKlient.isPresent()){
+            listaKlientow.remove(optionalKlient.get());
+        }
+    }
+
+    public void wyswietlKlientów(){
+        for (Klient k:listaKlientow) {
+            System.out.println("Imię: "+ k.getImie());
+            System.out.println("Nazwisko: "+ k.getNazwisko());
+            System.out.println("Email: "+ k.getEmail());
+            System.out.println("Pesel: "+ k.getPesel());
+            System.out.println("");
+        }
     }
 
     public void wypozycz(Karta karta, Ksiazka ksiazka, LocalDate localDate) {

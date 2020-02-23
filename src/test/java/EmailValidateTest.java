@@ -7,7 +7,7 @@ public class EmailValidateTest {
     @Test
     public void shouldValidEmail() {
         //given
-        String email = "kartabiblio@gmail.com";
+        String email = "riens@o2.pl";
         //when
         boolean result = EmailValidate.vaild(email);
         //then
