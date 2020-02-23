@@ -80,19 +80,19 @@ public class Biblioteka {
         }
     }
 
-    public void usunKlienta(String pesel){
-        Optional<Klient> optionalKlient = listaKlientow.stream().filter(e->e.getPesel().equals(pesel)).findAny();
-        if (optionalKlient.isPresent()){
+    public void usunKlienta(String pesel) {
+        Optional<Klient> optionalKlient = listaKlientow.stream().filter(e -> e.getPesel().equals(pesel)).findAny();
+        if (optionalKlient.isPresent()) {
             listaKlientow.remove(optionalKlient.get());
         }
     }
 
-    public void wyswietlKlientów(){
-        for (Klient k:listaKlientow) {
-            System.out.println("Imię: "+ k.getImie());
-            System.out.println("Nazwisko: "+ k.getNazwisko());
-            System.out.println("Email: "+ k.getEmail());
-            System.out.println("Pesel: "+ k.getPesel());
+    public void wyswietlKlientów() {
+        for (Klient k : listaKlientow) {
+            System.out.println("Imię: " + k.getImie());
+            System.out.println("Nazwisko: " + k.getNazwisko());
+            System.out.println("Email: " + k.getEmail());
+            System.out.println("Pesel: " + k.getPesel());
             System.out.println("");
         }
     }
@@ -154,6 +154,30 @@ public class Biblioteka {
         return gsonListaKart;
     }
 
+    public String listaKlientówGson() {
+        Gson gson = new Gson();
+        String gsonListaKlientów = gson.toJson(listaKlientow);
+        return gsonListaKlientów;
+    }
+
+    public String mapaWypożyczniaGson(){
+        Gson gson = new Gson();
+        String gsonMapaWypozyczn = gson.toJson(wypozyczenia);
+        return gsonMapaWypozyczn;
+    }
+
+    public void zapisDoPlikuMapaWypozyczen(String nazwapliku) throws  IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
+        bufferedWriter.write(mapaWypożyczniaGson());
+        bufferedWriter.close();
+    }
+
+    public void zapisDoPlikuListaKlientów(String nazwapliku) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
+        bufferedWriter.write(listaKlientówGson());
+        bufferedWriter.close();
+    }
+
     public void zapisDoPlikuListaKsiazek(String nazwapliku) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
         bufferedWriter.write(listaKsiazekGson());
@@ -166,6 +190,15 @@ public class Biblioteka {
         bufferedWriter.close();
     }
 
+    public void odczytZPlikuMapaWypozyczen(String nazwapliku) throws IOException{
+        Gson gson = new Gson();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(nazwapliku));
+        String linia = bufferedReader.readLine();
+        Type type = new TypeToken<HashMap<Karta, List<Ksiazka>>>(){}.getType();
+        HashMap<Karta, List<Ksiazka>> wypozyczenia2 = gson.fromJson(linia,type);
+        wypozyczenia.clear();
+        wypozyczenia = wypozyczenia2;
+    }
 
     public void odczytZPlikuListaKart(String nazwapliku) throws IOException {
         Gson gson = new Gson();
@@ -176,10 +209,27 @@ public class Biblioteka {
         List<Karta> listaKart2 = gson.fromJson(linia, type);
         listaKart.clear();
         listaKart = listaKart2;
-
-
     }
 
+    public void odczytZPlikuListaKsiazek(String nazwapliku) throws IOException {
+        Gson gson = new Gson();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(nazwapliku));
+        String linia = bufferedReader.readLine();
+        Type type = new TypeToken<List<Ksiazka>>() {
+        }.getType();
+        List<Ksiazka> listaKsiazek2 = gson.fromJson(linia, type);
+        listaKsiazek = listaKsiazek2;
+    }
 
+    public void odczytZPlikuListaKlientów(String nazwapliku) throws IOException {
+        Gson gson = new Gson();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(nazwapliku));
+        String linia = bufferedReader.readLine();
+        Type type = new TypeToken<List<Klient>>() {
+        }.getType();
+        List<Klient> listaKlientów2 = gson.fromJson(linia, type);
+        listaKlientow = listaKlientów2;
+
+    }
 }
 

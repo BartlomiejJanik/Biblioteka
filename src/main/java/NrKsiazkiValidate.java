@@ -6,9 +6,8 @@ public class NrKsiazkiValidate {
     public static boolean valid(String NrKsiazki) {
         if (NrKsiazki == null) {
             return false;
-
-
         }
+
         if (NrKsiazki.length() != 6) {
             return false;
         }
@@ -19,11 +18,7 @@ public class NrKsiazkiValidate {
         for (int i = 0; i < NrKsiazki.length(); i++) {
             if (!znaki.contains(NrKsiazkiZnaki[i])) ;
             return false;
-
-
         }
-
-
         return true;
     }
 }

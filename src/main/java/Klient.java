@@ -20,7 +20,7 @@ public class Klient {
         }
         if (EmailValidate.vaild(email)) {
             this.email = email;
-        }else{
+        } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
         if (PeselValidator.valid(pesel)) {

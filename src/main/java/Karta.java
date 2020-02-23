@@ -21,7 +21,9 @@ public class Karta {
 
     public Karta(String nrKarty, Klient klient) {
         if (EmptyValidate.valid(nrKarty)) {
-            this.nrKarty = nrKarty;
+            if (nrKarty.length()<=4) {
+                this.nrKarty = FixNumeru.fix(nrKarty);
+            }
         } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }

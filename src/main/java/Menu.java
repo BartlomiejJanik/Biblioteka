@@ -1,20 +1,26 @@
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Menu {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         Biblioteka biblioteka = new Biblioteka();
         boolean flag = true;
         while (flag) {
             System.out.println("siema");
             System.out.println("1.Ksiązka");
-            System.out.println("2.Karta");
-            System.out.println("3.Klinet");
+            System.out.println("2.Klient");
+            System.out.println("3.Karta");
+            System.out.println("0.Wyjście");
             switch (scanner.nextInt()) {
                 case 1:
                     System.out.println("1.Dodaj książke");
                     System.out.println("2.Usuń książke");
                     System.out.println("3.Wyświetl książki");
+                    System.out.println("4.Wypożycz ksiązke");
                     switch (scanner.nextInt()) {
                         case 1:
                             Scanner scan1 = new Scanner(System.in);
@@ -22,11 +28,10 @@ public class Menu {
                             String autor = scan1.nextLine();
                             System.out.println("podaj tytuł");
                             String tytul = scan1.nextLine();
-                            System.out.println("podaj nr książki");
-                            String nrKsiazki = scan1.nextLine();
-                            Ksiazka ksiazka = new Ksiazka(autor, tytul, nrKsiazki);
+                            Ksiazka ksiazka = new Ksiazka(RandomNrGenerator.generate(), autor, tytul);
                             biblioteka.dodajKsiazke(ksiazka);
                             System.out.println("Dodano książke!");
+                            biblioteka.zapisDoPlikuListaKsiazek("listaKsiazek.txt");
                             break;
                         case 2:
                             Scanner scan2 = new Scanner(System.in);
@@ -34,25 +39,26 @@ public class Menu {
                             String nrKsiazki2 = scan2.nextLine();
                             biblioteka.usunKsiazke(nrKsiazki2);
                             System.out.println("Usunięto książke :(");
+                            biblioteka.zapisDoPlikuListaKsiazek("listaKsiazek.txt");
                             break;
                         case 3:
                             System.out.println("dostępne książki:");
+                            biblioteka.odczytZPlikuListaKsiazek("listaKsiazek.txt");
                             biblioteka.wyswietlKsiazki();
                             break;
+                        case 4:
+                            System.out.println("Podaj nr Książki którą chcesz wypożyczyć, jeżeli nie znasz nr ksiażki, zerknij na liste dostępnych książek");
+                            Scanner scan3 = new Scanner(System.in);
+                            String nrKsiazki = scan3.nextLine();
+                            Optional<Ksiazka> optionalKsiazka = biblioteka.listaKsiazek.stream().filter(e -> e.getNrKsiazki().equals(nrKsiazki)).findFirst();
+                            System.out.println("Podaj nr karty");
+                            String nrKarty = scan3.nextLine();
+                            Optional<Karta> optionalKarta = biblioteka.listaKart.stream().filter(e -> e.getNrKarty().equals(nrKarty)).findFirst();
+                            biblioteka.wypozycz(optionalKarta.get(), optionalKsiazka.get(), LocalDate.now());
+
                     }
                     break;
                 case 2:
-                    System.out.println("1.Dodaj karte");
-                    System.out.println("2.Usuń karte");
-                    System.out.println("3.Wyświetl karty");
-                    switch (scanner.nextInt()) {
-                        case 1:
-                            ;
-
-
-                    }
-                    break;
-                case 3:
                     System.out.println("1.Dodaj klienta");
                     System.out.println("2.Usuń klienta");
                     System.out.println("3.Wyświetl klinetów");
@@ -67,9 +73,10 @@ public class Menu {
                             String email = scan1.nextLine();
                             System.out.println("Podaj nr pesel:");
                             String pesel = scan1.nextLine();
-                            Klient klient = new Klient(imie,nazwisko,email,pesel);
+                            Klient klient = new Klient(imie, nazwisko, email, pesel);
                             biblioteka.dodajKlienta(klient);
                             System.out.println("Dodano klienta!");
+                            biblioteka.zapisDoPlikuListaKlientów("listaKlientów.txt");
                             break;
                         case 2:
                             Scanner scan2 = new Scanner(System.in);
@@ -77,13 +84,48 @@ public class Menu {
                             String pesel2 = scan2.nextLine();
                             biblioteka.usunKlienta(pesel2);
                             System.out.println("Usunięto klienta :(");
+                            biblioteka.zapisDoPlikuListaKlientów("listaKlientów.txt");
+                            break;
                         case 3:
                             System.out.println("Lista Klientów:");
+                            biblioteka.odczytZPlikuListaKlientów("listaKlientów.txt");
                             biblioteka.wyswietlKlientów();
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("1.Dodaj karte");
+                    System.out.println("2.Usuń karte");
+                    System.out.println("3.Wyświetl karty");
+                    switch (scanner.nextInt()) {
+                        case 1:
+                            Scanner scan1 = new Scanner(System.in);
+                            System.out.println("Podaj nr pesel aby założyć kartę:");
+                            String pesel = scan1.nextLine();
+                            Optional<Klient> optionalKlient = biblioteka.listaKlientow.stream().filter(e -> e.getPesel().equals(pesel)).findFirst();
+                            Karta karta = new Karta(RandomNrGenerator.generate(), optionalKlient.get());
+                            biblioteka.dodajKarte(karta);
+                            System.out.println("Dodano Karte!");
+                            biblioteka.zapisDoPlikuListaKart("listaKart.txt");
+                            break;
+                        case 2:
+                            Scanner scan2 = new Scanner(System.in);
+                            System.out.println("Podaj nr Karty do usunięcia:");
+                            String nrKarty = scan2.nextLine();
+                            biblioteka.usunKarte(nrKarty);
+                            System.out.println("Usunięto karte o nr: " + nrKarty);
+                            biblioteka.zapisDoPlikuListaKart("listaKart.txt");
+                            break;
 
+                        case 3:
+                            System.out.println("Lista Kart:");
+                            biblioteka.odczytZPlikuListaKart("listaKart.txt");
+                            biblioteka.wyswietlKarty();
+                            break;
                     }
                     break;
                 case 0:
+                    System.out.println("Dziękujemy za skorzystanie z naszej shit'owej aplikacji!!! :D");
                     flag = false;
                     break;
             }

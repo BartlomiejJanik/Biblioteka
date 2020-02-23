@@ -8,6 +8,7 @@ public static boolean valid(String nrKarty){
         return false;
     }
     if (nrKarty.length() != 4){
+
         return false;
     }
 

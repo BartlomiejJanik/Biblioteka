@@ -9,21 +9,32 @@ public class Ksiazka {
     private String autorKsiazki;
     private String nrKsiazki;
 
-    public Ksiazka(String tytulKsiazki, String autorKsiazki, String nrKsiazki) {
+    public Ksiazka( String nrKsiazki,String autorKsiazki, String tytulKsiazki) {
         if (EmptyValidate.valid(tytulKsiazki)) {
             this.tytulKsiazki = tytulKsiazki;
-        }else{
+        } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
         if (EmptyValidate.valid(autorKsiazki)) {
             this.autorKsiazki = autorKsiazki;
-        }else{
+        } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
         if (NrKartyValidate.valid(nrKsiazki)) {
-            this.nrKsiazki = nrKsiazki;
-        }else{
+            if (nrKsiazki.length()<=4) {
+                this.nrKsiazki = FixNumeru.fix(nrKsiazki);
+            }
+        } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Ksiazka{" +
+                "tytulKsiazki='" + tytulKsiazki + '\'' +
+                ", autorKsiazki='" + autorKsiazki + '\'' +
+                ", nrKsiazki='" + nrKsiazki + '\'' +
+                '}';
     }
 }

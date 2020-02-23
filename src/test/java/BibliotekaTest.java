@@ -1,5 +1,6 @@
 
 
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,8 +16,8 @@ public class BibliotekaTest {
     @Test
     public void shoulddodajKsiazke() {
         //given
-        Ksiazka ksiazka1 = new Ksiazka("Hobbit", "Tolkien", "0001");
-        Ksiazka ksiazka2 = new Ksiazka("Wladca Pierscieni", "Tolkien", "0002");
+        Ksiazka ksiazka1 = new Ksiazka("0001","Hobbit", "Tolkien");
+        Ksiazka ksiazka2 = new Ksiazka("0002","Wladca Pierscieni", "Tolkien");
         Biblioteka biblioteka = new Biblioteka();
 
 
@@ -33,7 +34,7 @@ public class BibliotekaTest {
     @Test
     public void shouldRemoveKsiazka() {
         //given
-        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "1234");
+        Ksiazka ksiazka = new Ksiazka("1234","Pan Tadeusz", "Adam Mickiewicz");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
         Assert.assertEquals(1, biblioteka.listaKsiazek.size());
@@ -47,9 +48,9 @@ public class BibliotekaTest {
     @Test
     public void shouldPrintKsiazka() {
         //given
-        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0001");
-        Ksiazka ksiazka2 = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0002");
-        Ksiazka ksiazka3= new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0003");
+        Ksiazka ksiazka = new Ksiazka("0001","Pan Tadeusz", "Adam Mickiewicz");
+        Ksiazka ksiazka2 = new Ksiazka("0002","Pan Tadeusz", "Adam Mickiewicz");
+        Ksiazka ksiazka3= new Ksiazka("0003","Pan Tadeusz", "Adam Mickiewicz");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
         biblioteka.dodajKsiazke(ksiazka2);
@@ -154,11 +155,11 @@ public class BibliotekaTest {
         //given
         Klient klient = new Klient("Marcin", "Janusz","abc@gmail.com", "90073107917");
         Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
-        Ksiazka ksiazka2 = new Ksiazka("AAA", "BBB", "0002");
-        Ksiazka ksiazka3 = new Ksiazka("BBB", "BBB", "0003");
-        Ksiazka ksiazka4 = new Ksiazka("CCC", "BBB", "0004");
-        Ksiazka ksiazka5 = new Ksiazka("DDD", "BBB", "0005");
-        Ksiazka ksiazka6 = new Ksiazka("DDD", "BBB", "0006");
+        Ksiazka ksiazka2 = new Ksiazka("0002","AAA", "BBB");
+        Ksiazka ksiazka3 = new Ksiazka("0003","BBB", "BBB");
+        Ksiazka ksiazka4 = new Ksiazka("0004","CCC", "BBB");
+        Ksiazka ksiazka5 = new Ksiazka("0005","DDD", "BBB");
+        Ksiazka ksiazka6 = new Ksiazka("0006","DDD", "BBB");
         Karta karta = new Karta("1234", klient);
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
@@ -192,8 +193,8 @@ public class BibliotekaTest {
     public void shouldzwroc() {
         //given
         Klient klient = new Klient("Marcin", "Janusz","abc@gmail.com", "90073107917");
-        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
-        Ksiazka ksiazka2 = new Ksiazka("Hobbit", "Tolkien", "0002");
+        Ksiazka ksiazka = new Ksiazka("0001","Hobbit", "Tolkien");
+        Ksiazka ksiazka2 = new Ksiazka("0002","Hobbit", "Tolkien");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
         biblioteka.dodajKsiazke(ksiazka2);
@@ -222,10 +223,10 @@ public class BibliotekaTest {
     public void zapisDoPlikuListaKsiazek() throws IOException {
         //given
         Biblioteka biblioteka = new Biblioteka();
-        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
-        Ksiazka ksiazka2 = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0002");
-        Ksiazka ksiazka3 = new Ksiazka("AAA", "BBB", "0003");
-        Ksiazka ksiazka4 = new Ksiazka("Wladca Pierscieni", "Tolkien", "0004");
+        Ksiazka ksiazka = new Ksiazka("0001","Hobbit", "Tolkien");
+        Ksiazka ksiazka2 = new Ksiazka("0002","Pan Tadeusz", "Adam Mickiewicz");
+        Ksiazka ksiazka3 = new Ksiazka("0003","AAA", "BBB");
+        Ksiazka ksiazka4 = new Ksiazka("0004","Wladca Pierscieni", "Tolkien");
         biblioteka.dodajKsiazke(ksiazka);
         biblioteka.dodajKsiazke(ksiazka2);
         biblioteka.dodajKsiazke(ksiazka3);
@@ -250,20 +251,97 @@ public class BibliotekaTest {
         biblioteka.zapisDoPlikuListaKart("listaKart.txt");
         //then
 
-
     }
 
+    @Test
+    public void zapisDoPlikuListaKlientów() throws IOException {
+        //given
+        Biblioteka biblioteka = new Biblioteka();
+        Klient klient = new Klient("Marcin", "Janusz","abc@gmail.com", "90073107917");
+        Klient klient2 = new Klient("Bartłomiej", "Janik","abc@gmail.com", "95092345698");
+        biblioteka.dodajKlienta(klient);
+        biblioteka.dodajKlienta(klient2);
+        //when
+        biblioteka.zapisDoPlikuListaKlientów("listaKlientów.txt");
+        //then
+    }
+
+    @Test
+    public void zapisDoPlikuMapaWypozyczenia() throws IOException {
+        //given
+        Biblioteka biblioteka = new Biblioteka();
+        Ksiazka ksiazka = new Ksiazka("0001","aaa","bbb");
+        Ksiazka ksiazka2 = new Ksiazka("0002","c","d");
+        biblioteka.dodajKsiazke(ksiazka);
+        biblioteka.dodajKsiazke(ksiazka2);
+        Klient klient = new Klient("Marcin", "Janusz","abc@gmail.com", "90073107917");
+        Klient klient2 = new Klient("Bartłomiej", "Janik","abc@gmail.com", "95092345698");
+        biblioteka.dodajKlienta(klient);
+        biblioteka.dodajKlienta(klient2);
+        Karta karta = new Karta("0001",klient);
+        Karta karta2 = new Karta("0002",klient);
+        biblioteka.wypozycz(karta,ksiazka,LocalDate.now());
+        biblioteka.wypozycz(karta2,ksiazka2,LocalDate.now());
+
+        //when
+        biblioteka.zapisDoPlikuMapaWypozyczen("mapaWypożyczeń.txt");
+        //then
+        Assert.assertEquals(2,biblioteka.wypozyczenia.size());
+    }
+
+    @Test
+    public void odczytZPlikuListaKsiazek() throws IOException {
+        //given
+        Biblioteka biblioteka = new Biblioteka();
+        //when
+        biblioteka.odczytZPlikuListaKsiazek("listaKsiazek.txt");
+        for (Ksiazka ksiazka : biblioteka.listaKsiazek) {
+            System.out.println(ksiazka);
+        }
+        //then
+        Assert.assertEquals(4,biblioteka.listaKsiazek.size());
+    }
     @Test
     public void odczytZPlikuListaKart() throws IOException {
         //given
         Biblioteka biblioteka = new Biblioteka();
+
+        //when
         biblioteka.odczytZPlikuListaKart("listaKart.txt");
         for (Karta karta : biblioteka.listaKart) {
             System.out.println(karta);
         }
-        //when
-
         //then
+        Assert.assertEquals(2,biblioteka.listaKart.size());
+    }
+    @Test
+    public void odczytZPlikuListaKlientów() throws IOException {
+        //given
+        Biblioteka biblioteka = new Biblioteka();
+
+        //when
+        biblioteka.odczytZPlikuListaKlientów("listaKlientów.txt");
+        for (Klient klient : biblioteka.listaKlientow) {
+            System.out.println(klient);
+        }
+        //then
+        Assert.assertEquals(2,biblioteka.listaKlientow.size());
+    }
+
+    @Test
+    public void odczytZPlikuMapaWypozyczen() throws IOException {
+        //given
+        Biblioteka biblioteka = new Biblioteka();
+
+        //when
+        biblioteka.odczytZPlikuMapaWypozyczen("mapaWypożyczeń.txt");
+        for (Karta k : biblioteka.wypozyczenia.keySet()) {
+            String key = k.toString();
+            String value = biblioteka.wypozyczenia.get(k).toString();
+            System.out.println(key + value);
+        }
+        //then
+        Assert.assertEquals(2,biblioteka.wypozyczenia.size());
     }
 
 }
