@@ -1,3 +1,5 @@
+package Validate;
+
 public class EmptyValidate {
     public static boolean valid(String s) {
         if (s == null) {

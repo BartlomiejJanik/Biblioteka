@@ -1,3 +1,6 @@
+import Validate.EmailValidate;
+import Validate.EmptyValidate;
+import Validate.PeselValidator;
 import lombok.Getter;
 
 @Getter

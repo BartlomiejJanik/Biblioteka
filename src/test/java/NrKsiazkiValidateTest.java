@@ -1,3 +1,4 @@
+import Validate.NrKsiazkiValidate;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 public class Menu {
     public static void main(String[] args) throws IOException {
@@ -55,6 +55,7 @@ public class Menu {
                             String nrKarty = scan3.nextLine();
                             Optional<Karta> optionalKarta = biblioteka.listaKart.stream().filter(e -> e.getNrKarty().equals(nrKarty)).findFirst();
                             biblioteka.wypozycz(optionalKarta.get(), optionalKsiazka.get(), LocalDate.now());
+                            System.out.println("Data zwrotu: "+LocalDate.now().plusDays(20));
 
                     }
                     break;

@@ -65,9 +65,9 @@ public class BibliotekaTest {
     @Test
     public void shouldPrintKarta(){
         //given
-        Ksiazka ksiazka = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0001");
-        Ksiazka ksiazka2 = new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0002");
-        Ksiazka ksiazka3= new Ksiazka("Pan Tadeusz", "Adam Mickiewicz", "0003");
+        Ksiazka ksiazka = new Ksiazka("0001","Pan Tadeusz", "Adam Mickiewicz");
+        Ksiazka ksiazka2 = new Ksiazka("0002","Pan Tadeusz", "Adam Mickiewicz");
+        Ksiazka ksiazka3= new Ksiazka("0003","Pan Tadeusz", "Adam Mickiewicz");
         Biblioteka biblioteka = new Biblioteka();
         biblioteka.dodajKsiazke(ksiazka);
         biblioteka.dodajKsiazke(ksiazka2);
@@ -154,7 +154,7 @@ public class BibliotekaTest {
     public void shouldwypozycz() {
         //given
         Klient klient = new Klient("Marcin", "Janusz","abc@gmail.com", "90073107917");
-        Ksiazka ksiazka = new Ksiazka("Hobbit", "Tolkien", "0001");
+        Ksiazka ksiazka = new Ksiazka("0001", "Tolkien", "Hobbit");
         Ksiazka ksiazka2 = new Ksiazka("0002","AAA", "BBB");
         Ksiazka ksiazka3 = new Ksiazka("0003","BBB", "BBB");
         Ksiazka ksiazka4 = new Ksiazka("0004","CCC", "BBB");
@@ -282,7 +282,6 @@ public class BibliotekaTest {
         Karta karta2 = new Karta("0002",klient);
         biblioteka.wypozycz(karta,ksiazka,LocalDate.now());
         biblioteka.wypozycz(karta2,ksiazka2,LocalDate.now());
-
         //when
         biblioteka.zapisDoPlikuMapaWypozyczen("mapaWypożyczeń.txt");
         //then
@@ -341,7 +340,7 @@ public class BibliotekaTest {
             System.out.println(key + value);
         }
         //then
-        Assert.assertEquals(2,biblioteka.wypozyczenia.size());
+
     }
 
 }
