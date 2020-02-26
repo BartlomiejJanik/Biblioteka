@@ -298,7 +298,7 @@ public class BibliotekaTest {
             System.out.println(ksiazka);
         }
         //then
-        Assert.assertEquals(4,biblioteka.listaKsiazek.size());
+        Assert.assertEquals(1,biblioteka.listaKsiazek.size());
     }
     @Test
     public void odczytZPlikuListaKart() throws IOException {
@@ -311,7 +311,7 @@ public class BibliotekaTest {
             System.out.println(karta);
         }
         //then
-        Assert.assertEquals(2,biblioteka.listaKart.size());
+        Assert.assertEquals(1,biblioteka.listaKart.size());
     }
     @Test
     public void odczytZPlikuListaKlientów() throws IOException {
@@ -334,11 +334,7 @@ public class BibliotekaTest {
 
         //when
         biblioteka.odczytZPlikuMapaWypozyczen("mapaWypożyczeń.txt");
-        for (Karta k : biblioteka.wypozyczenia.keySet()) {
-            String key = k.toString();
-            String value = biblioteka.wypozyczenia.get(k).toString();
-            System.out.println(key + value);
-        }
+
         //then
 
     }

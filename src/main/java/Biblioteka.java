@@ -168,25 +168,25 @@ public class Biblioteka {
 
     public void zapisDoPlikuMapaWypozyczen(String nazwapliku) throws  IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
-        bufferedWriter.write(mapaWypożyczniaGson());
+        bufferedWriter.append(mapaWypożyczniaGson());
         bufferedWriter.close();
     }
 
     public void zapisDoPlikuListaKlientów(String nazwapliku) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
-        bufferedWriter.write(listaKlientówGson());
+        bufferedWriter.append(listaKlientówGson());
         bufferedWriter.close();
     }
 
     public void zapisDoPlikuListaKsiazek(String nazwapliku) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
-        bufferedWriter.write(listaKsiazekGson());
+        bufferedWriter.append(listaKsiazekGson());
         bufferedWriter.close();
     }
 
     public void zapisDoPlikuListaKart(String nazwapliku) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
-        bufferedWriter.write(listaKartGson());
+        bufferedWriter.append(listaKartGson());
         bufferedWriter.close();
     }
 

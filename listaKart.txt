@@ -1,1 +1,1 @@
-[{"nrKarty":"0001","klient":{"imie":"Marcin","nazwisko":"Janusz","email":"abc@gmail.com","pesel":"90073107917"},"liczbaWypożyczonychKsiazek":0},{"nrKarty":"0002","klient":{"imie":"Bartłomiej","nazwisko":"Janik","email":"abc@gmail.com","pesel":"90073107917"},"liczbaWypożyczonychKsiazek":0}]
+[{"nrKarty":"6194","klient":{"imie":"adam","nazwisko":"szczesny","email":"riens@wp.pl","pesel":"58112622492"},"liczbaWypożyczonychKsiazek":0}]

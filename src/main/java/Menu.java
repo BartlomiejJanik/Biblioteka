@@ -16,11 +16,16 @@ public class Menu {
             System.out.println("3.Karta");
             System.out.println("0.Wyjście");
             switch (scanner.nextInt()) {
+                case 4:
+                    System.out.println(biblioteka.listaKsiazek+"aaa");
+                    biblioteka.odczytZPlikuListaKsiazek("listaKsiazek.txt");
+                    System.out.println(biblioteka.listaKsiazek+"bb");
                 case 1:
                     System.out.println("1.Dodaj książke");
                     System.out.println("2.Usuń książke");
                     System.out.println("3.Wyświetl książki");
                     System.out.println("4.Wypożycz ksiązke");
+                    System.out.println("5.Zwróć ksiązke");
                     switch (scanner.nextInt()) {
                         case 1:
                             Scanner scan1 = new Scanner(System.in);
@@ -56,6 +61,11 @@ public class Menu {
                             Optional<Karta> optionalKarta = biblioteka.listaKart.stream().filter(e -> e.getNrKarty().equals(nrKarty)).findFirst();
                             biblioteka.wypozycz(optionalKarta.get(), optionalKsiazka.get(), LocalDate.now());
                             System.out.println("Data zwrotu: "+LocalDate.now().plusDays(20));
+                        case 5:
+                            System.out.println("Podaj nr książki która chcesz zwrócić:");
+                            Scanner scan4 = new Scanner(System.in);
+                            String nrKsiazkiDoZwrotu = scan4.nextLine();
+
 
                     }
                     break;
