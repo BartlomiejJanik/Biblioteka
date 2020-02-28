@@ -1,0 +1,14 @@
+[
+  {
+    "imie": "Marcin",
+    "nazwisko": "Janusz",
+    "email": "abc@gmail.com",
+    "pesel": "90073107917"
+  },
+  {
+    "imie": "Bartłomiej",
+    "nazwisko": "Janik",
+    "email": "abc@gmail.com",
+    "pesel": "95092345698"
+  }
+]

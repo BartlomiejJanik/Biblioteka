@@ -39,6 +39,7 @@ public class Klient {
         return "Klient{" +
                 "imie='" + imie + '\'' +
                 ", nazwisko='" + nazwisko + '\'' +
+                ", email='" + email + '\'' +
                 ", pesel='" + pesel + '\'' +
                 '}';
     }

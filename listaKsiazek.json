@@ -1,0 +1,22 @@
+[
+  {
+    "tytulKsiazki": "Tolkien",
+    "autorKsiazki": "Hobbit",
+    "nrKsiazki": "0001"
+  },
+  {
+    "tytulKsiazki": "Adam Mickiewicz",
+    "autorKsiazki": "Pan Tadeusz",
+    "nrKsiazki": "0002"
+  },
+  {
+    "tytulKsiazki": "BBB",
+    "autorKsiazki": "AAA",
+    "nrKsiazki": "0003"
+  },
+  {
+    "tytulKsiazki": "Tolkien",
+    "autorKsiazki": "Wladca Pierscieni",
+    "nrKsiazki": "0004"
+  }
+]

@@ -1,5 +1,6 @@
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
@@ -7,7 +8,6 @@ import lombok.Getter;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.nio.CharBuffer;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -16,7 +16,7 @@ public class Biblioteka {
     public List<Ksiazka> listaKsiazek = new ArrayList<>();
     public List<Klient> listaKlientow = new ArrayList<>();
     public List<Karta> listaKart = new ArrayList<>();
-    public HashMap<Karta, List<Ksiazka>> wypozyczenia = new HashMap<>();
+    public static HashMap<Karta, List<Ksiazka>> wypozyczenia = new HashMap<>();
 
 
     public void dodajKsiazke(Ksiazka ksiazka) {
@@ -63,6 +63,7 @@ public class Biblioteka {
         Optional<Ksiazka> ksiazkaOptional = listaKsiazek.stream().filter(e -> e.getNrKsiazki().equals(nrKsiazki)).findAny();
         if (ksiazkaOptional.isPresent()) {
             listaKsiazek.remove(ksiazkaOptional.get());
+            System.out.println("Usunięto karte!");
         }
     }
 
@@ -160,13 +161,13 @@ public class Biblioteka {
         return gsonListaKlientów;
     }
 
-    public String mapaWypożyczniaGson(){
+    public String mapaWypożyczniaGson() {
         Gson gson = new Gson();
         String gsonMapaWypozyczn = gson.toJson(wypozyczenia);
         return gsonMapaWypozyczn;
     }
 
-    public void zapisDoPlikuMapaWypozyczen(String nazwapliku) throws  IOException {
+    public void zapisDoPlikuMapaWypozyczen(String nazwapliku) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nazwapliku));
         bufferedWriter.append(mapaWypożyczniaGson());
         bufferedWriter.close();
@@ -190,12 +191,21 @@ public class Biblioteka {
         bufferedWriter.close();
     }
 
-    public void odczytZPlikuMapaWypozyczen(String nazwapliku) throws IOException{
-        Gson gson = new Gson();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(nazwapliku));
-        String linia = bufferedReader.readLine();
-        Type type = new TypeToken<HashMap<Karta, List<Ksiazka>>>(){}.getType();
-        HashMap<Karta, List<Ksiazka>> wypozyczenia2 = gson.fromJson(linia,type);
+   // public void odczytZPlikuMapaWypozyczen(String nazwapliku) throws IOException {
+   //     Gson gson = new Gson();
+   //     JsonReader jsonReader = new JsonReader(new FileReader(nazwapliku));
+   //     String linia = jsonReader.nextString();
+   //     Type type = new TypeToken<HashMap<Karta, List<Ksiazka>>>() {
+   //     }.getType();
+   //     HashMap<Karta, List<Ksiazka>> wypozyczenia2 = gson.fromJson(linia, type);
+   //     wypozyczenia.clear();
+   //     wypozyczenia = wypozyczenia2;
+   //     System.out.println(wypozyczenia2);
+   // }
+
+    public void odczytZPlikuMapaWypozyczen(String nazwapliku) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        HashMap<Karta, List<Ksiazka>> wypozyczenia2 = objectMapper.readValue(new File(nazwapliku), HashMap.class);
         wypozyczenia.clear();
         wypozyczenia = wypozyczenia2;
     }

@@ -1,1 +1,1 @@
-[{"imie":"bartek","nazwisko":"janik","email":"yano@p2.pl","pesel":"90073107917"},{"imie":"adam","nazwisko":"szczesny","email":"riens@wp.pl","pesel":"58112622492"}]
+[{"imie":"Bartłomiej","nazwisko":"Janik","email":"abc@gmail.com","pesel":"95092345698"},{"imie":"Bartłomiej","nazwisko":"Janik","email":"yanekk1990@gmail.com","pesel":"90073107917"}]

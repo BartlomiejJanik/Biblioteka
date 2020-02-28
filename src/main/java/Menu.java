@@ -4,12 +4,18 @@ import java.util.Optional;
 import java.util.Scanner;
 
 
+
 public class Menu {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         Biblioteka biblioteka = new Biblioteka();
+        SendEmail sendEmail = new SendEmail();
         boolean flag = true;
         while (flag) {
+            biblioteka.odczytZPlikuListaKsiazek("listaKsiazek.txt");
+            biblioteka.odczytZPlikuListaKart("listaKart.txt");
+            biblioteka.odczytZPlikuListaKlientów("listaKlientów.txt");
+            biblioteka.odczytZPlikuMapaWypozyczen("mapaWypozyczen.json");
             System.out.println("siema");
             System.out.println("1.Ksiązka");
             System.out.println("2.Klient");
@@ -19,7 +25,6 @@ public class Menu {
                 case 4:
                     System.out.println(biblioteka.listaKsiazek+"aaa");
                     biblioteka.odczytZPlikuListaKsiazek("listaKsiazek.txt");
-                    System.out.println(biblioteka.listaKsiazek+"bb");
                 case 1:
                     System.out.println("1.Dodaj książke");
                     System.out.println("2.Usuń książke");
@@ -61,10 +66,20 @@ public class Menu {
                             Optional<Karta> optionalKarta = biblioteka.listaKart.stream().filter(e -> e.getNrKarty().equals(nrKarty)).findFirst();
                             biblioteka.wypozycz(optionalKarta.get(), optionalKsiazka.get(), LocalDate.now());
                             System.out.println("Data zwrotu: "+LocalDate.now().plusDays(20));
-                        case 5:
-                            System.out.println("Podaj nr książki która chcesz zwrócić:");
-                            Scanner scan4 = new Scanner(System.in);
-                            String nrKsiazkiDoZwrotu = scan4.nextLine();
+                            sendEmail.sendWypozycz(optionalKsiazka.get(),optionalKarta.get());
+                            biblioteka.zapisDoPlikuListaKart("listaKart.txt");
+                            biblioteka.zapisDoPlikuListaKsiazek("listaKsiazek.txt");
+                            biblioteka.zapisDoPlikuMapaWypozyczen("mapaWypozyczen.json");
+                       //case 5:
+                       //    Scanner scan4 = new Scanner(System.in);
+                       //    System.out.println("Podaj nr Karty");
+                       //    String nrKartyDoZwrotu = scan4.nextLine();
+                       //    Optional<Karta> optionalKarta1 = Biblioteka.wypozyczenia.entrySet().stream().filter(e->e.getKey().getNrKarty().equals(nrKartyDoZwrotu)).map(Map.Entry::getKey)
+                       //        .findAny();
+                       //    System.out.println("Podaj nr książki która chcesz zwrócić:");
+                       //    String nrKsiazkiDoZwrotu = scan4.nextLine();
+                       //    Optional<Ksiazka> optionalKsiazka1 = Biblioteka.wypozyczenia.entrySet().stream().filter(e->e.getValue().stream().filter(v->v.getNrKsiazki().equals(nrKsiazkiDoZwrotu)).map(Map.Entry::getValue);
+                       //    System.out.println("Podaj nr Karty");
 
 
                     }
@@ -88,6 +103,7 @@ public class Menu {
                             biblioteka.dodajKlienta(klient);
                             System.out.println("Dodano klienta!");
                             biblioteka.zapisDoPlikuListaKlientów("listaKlientów.txt");
+                            sendEmail.sendDodanoKlienta(klient);
                             break;
                         case 2:
                             Scanner scan2 = new Scanner(System.in);
@@ -117,6 +133,7 @@ public class Menu {
                             Karta karta = new Karta(RandomNrGenerator.generate(), optionalKlient.get());
                             biblioteka.dodajKarte(karta);
                             System.out.println("Dodano Karte!");
+                            sendEmail.sendDodanoKarte(karta);
                             biblioteka.zapisDoPlikuListaKart("listaKart.txt");
                             break;
                         case 2:

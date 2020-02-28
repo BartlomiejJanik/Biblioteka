@@ -223,10 +223,10 @@ public class BibliotekaTest {
     public void zapisDoPlikuListaKsiazek() throws IOException {
         //given
         Biblioteka biblioteka = new Biblioteka();
-        Ksiazka ksiazka = new Ksiazka("0001","Hobbit", "Tolkien");
-        Ksiazka ksiazka2 = new Ksiazka("0002","Pan Tadeusz", "Adam Mickiewicz");
+        Ksiazka ksiazka = new Ksiazka("0001", "Tolkien","Hobbit");
+        Ksiazka ksiazka2 = new Ksiazka("0002", "Adam Mickiewicz","Pan Tadeusz");
         Ksiazka ksiazka3 = new Ksiazka("0003","AAA", "BBB");
-        Ksiazka ksiazka4 = new Ksiazka("0004","Wladca Pierscieni", "Tolkien");
+        Ksiazka ksiazka4 = new Ksiazka("0004", "Tolkien","Wladca Pierscieni");
         biblioteka.dodajKsiazke(ksiazka);
         biblioteka.dodajKsiazke(ksiazka2);
         biblioteka.dodajKsiazke(ksiazka3);
@@ -283,7 +283,7 @@ public class BibliotekaTest {
         biblioteka.wypozycz(karta,ksiazka,LocalDate.now());
         biblioteka.wypozycz(karta2,ksiazka2,LocalDate.now());
         //when
-        biblioteka.zapisDoPlikuMapaWypozyczen("mapaWypożyczeń.txt");
+        biblioteka.zapisDoPlikuMapaWypozyczen("mapaWypozyczen.json");
         //then
         Assert.assertEquals(2,biblioteka.wypozyczenia.size());
     }
@@ -298,7 +298,7 @@ public class BibliotekaTest {
             System.out.println(ksiazka);
         }
         //then
-        Assert.assertEquals(1,biblioteka.listaKsiazek.size());
+        Assert.assertEquals(4,biblioteka.listaKsiazek.size());
     }
     @Test
     public void odczytZPlikuListaKart() throws IOException {
@@ -311,7 +311,7 @@ public class BibliotekaTest {
             System.out.println(karta);
         }
         //then
-        Assert.assertEquals(1,biblioteka.listaKart.size());
+        Assert.assertEquals(2,biblioteka.listaKart.size());
     }
     @Test
     public void odczytZPlikuListaKlientów() throws IOException {
@@ -333,9 +333,11 @@ public class BibliotekaTest {
         Biblioteka biblioteka = new Biblioteka();
 
         //when
-        biblioteka.odczytZPlikuMapaWypozyczen("mapaWypożyczeń.txt");
+        biblioteka.odczytZPlikuMapaWypozyczen("mapaWypozyczen.json");
+        System.out.println(Biblioteka.wypozyczenia);
 
         //then
+        Assert.assertEquals(2,Biblioteka.wypozyczenia.size());
 
     }
 
