@@ -1,1 +1,1 @@
-[{"imie":"Bartłomiej","nazwisko":"Janik","email":"abc@gmail.com","pesel":"95092345698"},{"imie":"Bartłomiej","nazwisko":"Janik","email":"yanekk1990@gmail.com","pesel":"90073107917"}]
+[{"imie":"Bartłomiej","nazwisko":"Janik","email":"abc@gmail.com","pesel":"95092345698"},{"imie":"Bartłomiej","nazwisko":"Janik","email":"yanekk1990@gmail.com","pesel":"90073107917"},{"imie":"Marta","nazwisko":"Niewiadomska","email":"martusia25.94@wp.pl","pesel":"85032757139"},{"imie":"Jacak","nazwisko":"Robak","email":"yano1@o2.pl","pesel":"60060885975"}]

@@ -10,8 +10,9 @@ public class Ksiazka {
     private String tytulKsiazki;
     private String autorKsiazki;
     private String nrKsiazki;
+    private String gatunek;
 
-    public Ksiazka( String nrKsiazki,String autorKsiazki, String tytulKsiazki) {
+    public Ksiazka(String nrKsiazki, String autorKsiazki, String tytulKsiazki, String gatunek) {
         if (EmptyValidate.valid(tytulKsiazki)) {
             this.tytulKsiazki = tytulKsiazki;
         } else {
@@ -23,9 +24,14 @@ public class Ksiazka {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
         if (NrKartyValidate.valid(nrKsiazki)) {
-            if (nrKsiazki.length()<=4) {
+            if (nrKsiazki.length() <= 4) {
                 this.nrKsiazki = FixNumeru.fix(nrKsiazki);
             }
+        } else {
+            throw new IllegalArgumentException("Nie poprawne dane!");
+        }
+        if (EmptyValidate.valid(gatunek)) {
+            this.gatunek = gatunek;
         } else {
             throw new IllegalArgumentException("Nie poprawne dane!");
         }
@@ -37,6 +43,7 @@ public class Ksiazka {
                 "tytulKsiazki='" + tytulKsiazki + '\'' +
                 ", autorKsiazki='" + autorKsiazki + '\'' +
                 ", nrKsiazki='" + nrKsiazki + '\'' +
+                ", gatunek='" + gatunek + '\'' +
                 '}';
     }
 }

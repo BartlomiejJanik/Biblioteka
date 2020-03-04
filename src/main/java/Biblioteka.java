@@ -17,6 +17,7 @@ public class Biblioteka {
     public List<Klient> listaKlientow = new ArrayList<>();
     public List<Karta> listaKart = new ArrayList<>();
     public static HashMap<Karta, List<Ksiazka>> wypozyczenia = new HashMap<>();
+    SendEmail sendEmail = new SendEmail();
 
 
     public void dodajKsiazke(Ksiazka ksiazka) {
@@ -34,19 +35,25 @@ public class Biblioteka {
 
 
     public void wyswietlKsiazki() {
+        System.out.print(String.format("%-26s", "Tytuł"));
+        System.out.print(String.format("%-25s", "Autor"));
+        System.out.print(String.format("%-15s", "Nr.Ksiażki"));
+        System.out.println(String.format("%-18s", "Gatnek"));
         for (Ksiazka k : listaKsiazek) {
-            System.out.println("Nr ksiazki: " + k.getNrKsiazki());
-            System.out.println("Autor: " + k.getAutorKsiazki());
-            System.out.println("Tytuł: " + k.getTytulKsiazki());
-            System.out.println(" ");
+            System.out.println(String.format("%-26s", k.getTytulKsiazki()) +
+                    String.format("%-25s", k.getAutorKsiazki()) +
+                    String.format("%-15s", k.getNrKsiazki()) +
+                    String.format("%-18s", k.getGatunek()));
         }
     }
 
     public void wyswietlKarty() {
+
         for (Karta k : listaKart) {
             System.out.println("Nr karty: " + k.getNrKarty());
             System.out.println(k.getKlient());
             System.out.println("Liczba wypożyczonych książek: " + k.getLiczbaWypożyczonychKsiazek());
+            System.out.println("");
         }
     }
 
@@ -74,8 +81,17 @@ public class Biblioteka {
 
     public void dodajKlienta(Klient klient) {
         long count = listaKlientow.stream().filter(e -> e.getPesel().equals(klient.getPesel())).count();
+        long count2 = listaKlientow.stream().filter(e -> e.getEmail().equals(klient.getEmail())).count();
         if (count == 0) {
-            listaKlientow.add(klient);
+            if (count2 == 0) {
+                listaKlientow.add(klient);
+                sendEmail.sendDodanoKlienta(klient);
+                System.out.println("Dodano klienta!");
+                System.out.println("Wysłano E-mail potwierdzający");
+
+            } else {
+                System.out.println("Adres E-mail jest przypisany do innego użytkowanika");
+            }
         } else {
             System.out.println("Klient o podanym nr pesel istnieje w bazie!");
         }
@@ -89,12 +105,16 @@ public class Biblioteka {
     }
 
     public void wyswietlKlientów() {
+        System.out.print(String.format("%-20s", "Imię"));
+        System.out.print(String.format("%-20s", "Nazwisko"));
+        System.out.print(String.format("%-25s", "E-mail"));
+        System.out.println(String.format("%-25s", "Pesel"));
         for (Klient k : listaKlientow) {
-            System.out.println("Imię: " + k.getImie());
-            System.out.println("Nazwisko: " + k.getNazwisko());
-            System.out.println("Email: " + k.getEmail());
-            System.out.println("Pesel: " + k.getPesel());
-            System.out.println("");
+            System.out.println(String.format("%-20s", k.getImie())
+                    + String.format("%-20s", k.getNazwisko())
+                    + String.format("%-25s", k.getEmail())
+                    + String.format("%-25s", k.getPesel()));
+
         }
     }
 
@@ -191,17 +211,17 @@ public class Biblioteka {
         bufferedWriter.close();
     }
 
-   // public void odczytZPlikuMapaWypozyczen(String nazwapliku) throws IOException {
-   //     Gson gson = new Gson();
-   //     JsonReader jsonReader = new JsonReader(new FileReader(nazwapliku));
-   //     String linia = jsonReader.nextString();
-   //     Type type = new TypeToken<HashMap<Karta, List<Ksiazka>>>() {
-   //     }.getType();
-   //     HashMap<Karta, List<Ksiazka>> wypozyczenia2 = gson.fromJson(linia, type);
-   //     wypozyczenia.clear();
-   //     wypozyczenia = wypozyczenia2;
-   //     System.out.println(wypozyczenia2);
-   // }
+    // public void odczytZPlikuMapaWypozyczen(String nazwapliku) throws IOException {
+    //     Gson gson = new Gson();
+    //     JsonReader jsonReader = new JsonReader(new FileReader(nazwapliku));
+    //     String linia = jsonReader.nextString();
+    //     Type type = new TypeToken<HashMap<Karta, List<Ksiazka>>>() {
+    //     }.getType();
+    //     HashMap<Karta, List<Ksiazka>> wypozyczenia2 = gson.fromJson(linia, type);
+    //     wypozyczenia.clear();
+    //     wypozyczenia = wypozyczenia2;
+    //     System.out.println(wypozyczenia2);
+    // }
 
     public void odczytZPlikuMapaWypozyczen(String nazwapliku) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();

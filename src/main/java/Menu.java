@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.Scanner;
 
 
-
 public class Menu {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -16,14 +15,14 @@ public class Menu {
             biblioteka.odczytZPlikuListaKart("listaKart.txt");
             biblioteka.odczytZPlikuListaKlientów("listaKlientów.txt");
             biblioteka.odczytZPlikuMapaWypozyczen("mapaWypozyczen.json");
-            System.out.println("siema");
+            System.out.println("MENU");
             System.out.println("1.Ksiązka");
             System.out.println("2.Klient");
             System.out.println("3.Karta");
             System.out.println("0.Wyjście");
             switch (scanner.nextInt()) {
                 case 4:
-                    System.out.println(biblioteka.listaKsiazek+"aaa");
+                    System.out.println(biblioteka.listaKsiazek + "aaa");
                     biblioteka.odczytZPlikuListaKsiazek("listaKsiazek.txt");
                 case 1:
                     System.out.println("1.Dodaj książke");
@@ -38,7 +37,10 @@ public class Menu {
                             String autor = scan1.nextLine();
                             System.out.println("podaj tytuł");
                             String tytul = scan1.nextLine();
-                            Ksiazka ksiazka = new Ksiazka(RandomNrGenerator.generate(), autor, tytul);
+                            System.out.println("wpisz słownie gatunek");
+                            System.out.println("1.Dramat, 2.Komedia, 3.Fantasy, 4.Thriller");
+                            String gatunek = scan1.nextLine();
+                            Ksiazka ksiazka = new Ksiazka(RandomNrGenerator.generate(), autor, tytul, gatunek);
                             biblioteka.dodajKsiazke(ksiazka);
                             System.out.println("Dodano książke!");
                             biblioteka.zapisDoPlikuListaKsiazek("listaKsiazek.txt");
@@ -65,21 +67,21 @@ public class Menu {
                             String nrKarty = scan3.nextLine();
                             Optional<Karta> optionalKarta = biblioteka.listaKart.stream().filter(e -> e.getNrKarty().equals(nrKarty)).findFirst();
                             biblioteka.wypozycz(optionalKarta.get(), optionalKsiazka.get(), LocalDate.now());
-                            System.out.println("Data zwrotu: "+LocalDate.now().plusDays(20));
-                            sendEmail.sendWypozycz(optionalKsiazka.get(),optionalKarta.get());
+                            System.out.println("Data zwrotu: " + LocalDate.now().plusDays(20));
+                            sendEmail.sendWypozycz(optionalKsiazka.get(), optionalKarta.get());
                             biblioteka.zapisDoPlikuListaKart("listaKart.txt");
                             biblioteka.zapisDoPlikuListaKsiazek("listaKsiazek.txt");
                             biblioteka.zapisDoPlikuMapaWypozyczen("mapaWypozyczen.json");
-                       //case 5:
-                       //    Scanner scan4 = new Scanner(System.in);
-                       //    System.out.println("Podaj nr Karty");
-                       //    String nrKartyDoZwrotu = scan4.nextLine();
-                       //    Optional<Karta> optionalKarta1 = Biblioteka.wypozyczenia.entrySet().stream().filter(e->e.getKey().getNrKarty().equals(nrKartyDoZwrotu)).map(Map.Entry::getKey)
-                       //        .findAny();
-                       //    System.out.println("Podaj nr książki która chcesz zwrócić:");
-                       //    String nrKsiazkiDoZwrotu = scan4.nextLine();
-                       //    Optional<Ksiazka> optionalKsiazka1 = Biblioteka.wypozyczenia.entrySet().stream().filter(e->e.getValue().stream().filter(v->v.getNrKsiazki().equals(nrKsiazkiDoZwrotu)).map(Map.Entry::getValue);
-                       //    System.out.println("Podaj nr Karty");
+                            //case 5:
+                            //    Scanner scan4 = new Scanner(System.in);
+                            //    System.out.println("Podaj nr Karty");
+                            //    String nrKartyDoZwrotu = scan4.nextLine();
+                            //    Optional<Karta> optionalKarta1 = Biblioteka.wypozyczenia.entrySet().stream().filter(e->e.getKey().getNrKarty().equals(nrKartyDoZwrotu)).map(Map.Entry::getKey)
+                            //        .findAny();
+                            //    System.out.println("Podaj nr książki która chcesz zwrócić:");
+                            //    String nrKsiazkiDoZwrotu = scan4.nextLine();
+                            //    Optional<Ksiazka> optionalKsiazka1 = Biblioteka.wypozyczenia.entrySet().stream().filter(e->e.getValue().stream().filter(v->v.getNrKsiazki().equals(nrKsiazkiDoZwrotu)).map(Map.Entry::getValue);
+                            //    System.out.println("Podaj nr Karty");
 
 
                     }
@@ -101,9 +103,7 @@ public class Menu {
                             String pesel = scan1.nextLine();
                             Klient klient = new Klient(imie, nazwisko, email, pesel);
                             biblioteka.dodajKlienta(klient);
-                            System.out.println("Dodano klienta!");
                             biblioteka.zapisDoPlikuListaKlientów("listaKlientów.txt");
-                            sendEmail.sendDodanoKlienta(klient);
                             break;
                         case 2:
                             Scanner scan2 = new Scanner(System.in);

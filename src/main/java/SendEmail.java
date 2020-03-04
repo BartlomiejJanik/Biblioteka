@@ -98,7 +98,8 @@ public class SendEmail {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(karta.getKlient().getEmail()));
             message.setSubject("Operacja na karcie nr: "+karta.getNrKarty());
             message.setText("Kliencie,"+"\n"+"wypożyczyłeś książke o nr: "+ksiazka.getNrKsiazki()+"\n"+
-                    "Autor: "+ksiazka.getAutorKsiazki()+"\n"+"Tytyuł: "+ksiazka.getTytulKsiazki()+"."+
+                    "Autor: "+ksiazka.getAutorKsiazki()+"\n"+"Tytyuł: "+ksiazka.getTytulKsiazki()+"\n" +
+                    "Gatunek: "+ksiazka.getGatunek()+"."+
                     "\n"+"Data zwrotu ksiązki przypada na: "+dataZwrotu);
             Transport.send(message);
 
